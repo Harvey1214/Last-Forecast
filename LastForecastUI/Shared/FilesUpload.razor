@@ -1,0 +1,79 @@
+﻿@using System.IO
+@using Data
+
+@inject DataStorage DataStorage 
+
+<InputFile OnChange="@LoadFiles" multiple />
+
+<RadzenButton Text="Continue" Click="@Continue"/>
+
+<p>@exceptionMessage</p>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+
+@foreach (var (file, content) in loadedFiles)
+{
+    <div>
+        Name: @file.Name
+        <br />
+        Size (bytes): @file.Size
+        <br />
+        <br />
+    </div>
+}
+
+@code {
+    private Dictionary<IBrowserFile, string> loadedFiles = new Dictionary<IBrowserFile, string>();
+    private long maxFileSize = 1024 * 1500;
+    private int maxAllowedFiles = 2;
+    private bool isLoading;
+    string exceptionMessage;
+
+    [Parameter]
+    public Pages.Forecast Forecast { get; set; }
+
+    private void Continue()
+    {
+        if (loadedFiles.Count == 2)
+        {
+            @foreach (var (file, content) in loadedFiles)
+            {
+                DataStorage.RawData.Add(new RawData() { Name = file.Name, Content = file.ReadAsList().Result.ToArray() }); 
+
+                if (Forecast != null)
+                    Forecast.DataSetup();
+            }
+        }
+        else
+        {
+            exceptionMessage = "Please select two files";
+        }
+    }
+
+    async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+        exceptionMessage = string.Empty;
+
+        try
+        {
+            foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+            {
+                using var reader =
+                    new StreamReader(file.OpenReadStream(maxFileSize));
+
+                loadedFiles.Add(file, await reader.ReadToEndAsync());
+            }
+        }
+        catch (Exception ex)
+        {
+            exceptionMessage = ex.Message;
+        }
+
+        isLoading = false;
+    }
+}

@@ -1,0 +1,49 @@
+﻿@page "/forecast"
+@using Data
+@inject DataStorage DataStorage
+
+@switch (DataStorage.State)
+{
+    case State.UPLOAD:
+        <FilesUpload Forecast="@this" />
+        break;
+    case State.DATA_SETUP:
+        @foreach (var file in DataStorage.RawData)
+        {
+            <h5>@file.Name</h5>
+            <p>
+                @foreach (var line in file.Content)
+                {
+                    <div>@line</div>
+                }
+            </p>
+        }
+        break;
+    case State.CHOOSE_ALGORITHM:
+
+        break;
+    case State.DISPLAY_RESULTS:
+
+        break;
+}
+
+@code {
+    public void DataSetup()
+    {
+        DataStorage.State = State.DATA_SETUP;
+        Update();
+    }
+
+    public void Update()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+}
+
+<!--
+    DATA TEST
+    <div>@DataStorage.RawData[0].Name</div>
+    <div>@DataStorage.RawData[0].Content</div>
+    <div>@DataStorage.RawData[1].Name</div>
+    <div>@DataStorage.RawData[1].Content</div>
+-->
