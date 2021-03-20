@@ -105,6 +105,13 @@ using System.IO;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
+using System.Text;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
 using Data;
 
 #line default
@@ -118,7 +125,7 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
+#line 29 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
        
     private Dictionary<IBrowserFile, string> loadedFiles = new Dictionary<IBrowserFile, string>();
     private long maxFileSize = 1024 * 1500;
@@ -139,10 +146,11 @@ using Data;
 #line hidden
 #nullable disable
 #nullable restore
-#line 42 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
+#line 43 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
              foreach (var (file, content) in loadedFiles)
             {
-                DataStorage.RawData.Add(new RawData() { Name = file.Name, Content = file.ReadAsList().Result.ToArray() }); 
+                string[] lines = content.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                DataStorage.RawData.Add(new RawData() { Name = file.Name, Content = lines});
 
                 if (Forecast != null)
                     Forecast.DataSetup();
@@ -152,7 +160,7 @@ using Data;
 #line hidden
 #nullable disable
 #nullable restore
-#line 48 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
+#line 50 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
              
         }
         else
