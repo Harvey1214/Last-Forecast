@@ -1,0 +1,81 @@
+﻿@using Forecast
+@using ForecastLibrary
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 p-4">
+        <RadzenChart>
+            <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity" RenderingOrder="1">
+            </RadzenAreaSeries>
+            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+            <RadzenValueAxis>
+                <RadzenGridLines Visible="true" />
+                <RadzenAxisTitle Text="Quantity" />
+            </RadzenValueAxis>
+        </RadzenChart>
+    </div>
+</div>
+
+<RadzenButton Text="Update" Click="Update"/>
+
+@code {
+    bool smooth = true;
+
+    [Parameter]
+    public ProcessOutput Product { get; set; }
+
+    private List<DataItem> Data = new List<DataItem>();
+
+    protected override void OnInitialized()
+    {
+        Update();
+    }
+
+    private void Update()
+    {
+        Data.Clear();
+
+        DateTime startDate = DateTime.Now;
+
+        foreach (var sale in Product.Product.Sales)
+        {
+            DateTime date = new DateTime();
+            date = date.AddDays(sale.Day);
+            date = date.AddMonths(Convert.ToInt32(sale.Month));
+            date = date.AddYears(Convert.ToInt32(sale.Year));
+
+            if (date < startDate)
+            {
+                startDate = date;
+            }
+        }
+
+        startDate = startDate.AddYears(-1);
+        startDate = startDate.AddMonths(-1);
+        while (startDate < DateTime.Now)
+        {
+            DataItem item = new DataItem();
+            var salesInMonth = Product.Product.Sales.Where(o => o.Year == startDate.Year && o.Month == startDate.Month);
+
+            int totalSoldInMonth = 0;
+            foreach (var sale in salesInMonth)
+            {
+                totalSoldInMonth += Convert.ToInt32(sale.Quantity);
+            }
+
+            item.Date = startDate;
+            item.Quantity = totalSoldInMonth;
+
+            Data.Add(item);
+
+            startDate = startDate.AddMonths(1);
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    class DataItem
+    {
+        public DateTime Date { get; set; }
+        public int Quantity { get; set; }
+    }
+}

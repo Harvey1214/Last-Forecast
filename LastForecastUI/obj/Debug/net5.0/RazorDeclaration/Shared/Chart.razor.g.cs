@@ -97,20 +97,20 @@ using Radzen.Blazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 1 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
 using Forecast;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 2 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
 using ForecastLibrary;
 
 #line default
 #line hidden
 #nullable disable
-    public partial class DisplayData : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Chart : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -118,19 +118,72 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 25 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 20 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
        
-    private ProcessOutput OpenedProduct { get; set; }
+    bool smooth = true;
 
-    private void OpenDetails(string code)
+    [Parameter]
+    public ProcessOutput Product { get; set; }
+
+    private List<DataItem> Data = new List<DataItem>();
+
+    protected override void OnInitialized()
     {
-        OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        Update();
+    }
+
+    private void Update()
+    {
+        Data.Clear();
+
+        DateTime startDate = DateTime.Now;
+
+        foreach (var sale in Product.Product.Sales)
+        {
+            DateTime date = new DateTime();
+            date = date.AddDays(sale.Day);
+            date = date.AddMonths(Convert.ToInt32(sale.Month));
+            date = date.AddYears(Convert.ToInt32(sale.Year));
+
+            if (date < startDate)
+            {
+                startDate = date;
+            }
+        }
+
+        startDate = startDate.AddYears(-1);
+        startDate = startDate.AddMonths(-1);
+        while (startDate < DateTime.Now)
+        {
+            DataItem item = new DataItem();
+            var salesInMonth = Product.Product.Sales.Where(o => o.Year == startDate.Year && o.Month == startDate.Month);
+
+            int totalSoldInMonth = 0;
+            foreach (var sale in salesInMonth)
+            {
+                totalSoldInMonth += Convert.ToInt32(sale.Quantity);
+            }
+
+            item.Date = startDate;
+            item.Quantity = totalSoldInMonth;
+
+            Data.Add(item);
+
+            startDate = startDate.AddMonths(1);
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    class DataItem
+    {
+        public DateTime Date { get; set; }
+        public int Quantity { get; set; }
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
     }
 }
 #pragma warning restore 1591

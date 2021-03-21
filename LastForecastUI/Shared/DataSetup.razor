@@ -89,12 +89,9 @@
     </div>
 </RadzenFieldset>
 
-@if (salesFileChooseDropDown != null)
-{
-    <div>@salesFileChooseDropDown.SelectedItem.ToString()</div>
-}
-
-<RadzenButton Text="Continue" Click="Continue" />
+<div class="continueButton">
+    <RadzenButton Text="Continue" Click="Continue" />
+</div>
 
 @code {
     [Parameter]

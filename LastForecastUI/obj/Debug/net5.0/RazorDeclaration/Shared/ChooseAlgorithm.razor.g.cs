@@ -111,14 +111,30 @@ using Forecast;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 6 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
+#line 20 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
        
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
+    private RadzenDropDown<string> algorithmDropDown;
+
     private void Continue()
     {
-        ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+        string selectedAlgorithmText = "";
+
+        if (algorithmDropDown.SelectedItem != null)
+            selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
+
+        switch (selectedAlgorithmText)
+        {
+            case "Average":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+                break;
+            default:
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+                break;
+        }
+
         ForecastingManager.FindLatestOrderDays();
 
         Forecast.DisplayResults();

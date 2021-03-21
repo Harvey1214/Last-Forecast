@@ -10,5 +10,12 @@ namespace ForecastLibrary
         public Product Product { get; set; }
         public float DaysToOrder { get; set; }
         public float DailySales { get; set; }
+        public float MonthlySales
+        {
+            get
+            {
+                return DailySales * 30;
+            }
+        }
     }
 }

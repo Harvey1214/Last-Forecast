@@ -125,7 +125,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 99 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DataSetup.razor"
+#line 96 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DataSetup.razor"
        
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }

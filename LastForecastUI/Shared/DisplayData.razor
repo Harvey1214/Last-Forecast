@@ -1,19 +1,32 @@
 ﻿@using Forecast
 @using ForecastLibrary
-@inject ForecastingManager ForecastingManager 
+@inject ForecastingManager ForecastingManager
 
+<RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+            AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true">
+    <Columns>
+        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Code" />
+        <RadzenGridColumn TItem="ProcessOutput" Property="DaysToOrder" Title="Days until Stockout" />
+        <RadzenGridColumn TItem="ProcessOutput" Property="MonthlySales" Title="Monthly Sales" />
+        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
+        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
+            <Template Context="data">
+                <RadzenButton Text="Open" Click="@(args => OpenDetails(data.Product.Code))" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
 
-<table>
-    @foreach (var product in ForecastingManager.Results)
-    {
-        <tr>
-            <td>@product.Product.Code</td>
-            <td>@product.DaysToOrder</td>
-            <td>@product.DailySales</td>
-        </tr>
-    }
-</table>
+@if (OpenedProduct != null)
+{
+    <Chart Product="@OpenedProduct"/>
+}
 
 @code {
+    private ProcessOutput OpenedProduct { get; set; }
 
+    private void OpenDetails(string code)
+    {
+        OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+    }
 }

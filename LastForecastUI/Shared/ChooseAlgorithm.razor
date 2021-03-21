@@ -1,15 +1,45 @@
 ﻿@using Forecast
 @inject ForecastingManager ForecastingManager 
 
-<RadzenButton Text="Continue" Click="Continue" />
+<RadzenFieldset Text="Prediction Algorithm">
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Algorithm" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
+                            Data=@(new List<string>() { "Average" }) />
+        </div>
+    </div>
+</RadzenFieldset>
+
+<div class="continueButton">
+    <RadzenButton Text="Continue" Click="Continue" />
+</div>
 
 @code {
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
+    private RadzenDropDown<string> algorithmDropDown;
+
     private void Continue()
     {
-        ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+        string selectedAlgorithmText = "";
+
+        if (algorithmDropDown.SelectedItem != null)
+            selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
+
+        switch (selectedAlgorithmText)
+        {
+            case "Average":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+                break;
+            default:
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+                break;
+        }
+
         ForecastingManager.FindLatestOrderDays();
 
         Forecast.DisplayResults();
