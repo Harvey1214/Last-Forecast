@@ -134,7 +134,7 @@ using Data;
     string exceptionMessage;
 
     [Parameter]
-    public Pages.Forecast Forecast { get; set; }
+    public Pages.ForecastPage Forecast { get; set; }
 
     private void Continue()
     {

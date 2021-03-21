@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Forecast;
 
 namespace LastForecastUI
 {
@@ -30,6 +31,7 @@ namespace LastForecastUI
             services.AddServerSideBlazor();
 
             services.AddScoped<DataStorage>();
+            services.AddScoped<ForecastingManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

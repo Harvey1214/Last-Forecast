@@ -1,0 +1,133 @@
+﻿@using Data
+@using Forecast
+@using ForecastLibrary 
+
+@inject DataStorage DataStorage
+@inject ForecastingManager ForecastingManager 
+
+<RadzenFieldset Text="General">
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Inventory File" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown AllowClear="false" TValue="string" @ref="inventoryFileChooseDropDown"
+                            Data=@(DataStorage.GetFileNames()) />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Sales File" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown AllowClear="false" TValue="string" @ref="salesFileChooseDropDown"
+                            Data=@(DataStorage.GetFileNames()) />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Separator Char" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown AllowClear="false" TValue="string" @ref="separatorCharacterDropDown"
+                            Data=@(new List<string>() {",", ";"}) />
+        </div>
+    </div>
+</RadzenFieldset>
+
+<RadzenFieldset Text="Inventory">
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Product code" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="productIdInventory" />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Inventory on hand" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="inventoryOnHand" />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Lead time" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="leadTime" />
+        </div>
+    </div>
+</RadzenFieldset>
+
+<RadzenFieldset Text="Sales">
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Product code" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="productIdSales" />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Date" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="date" />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Units sold" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="unitsSold" />
+        </div>
+    </div>
+</RadzenFieldset>
+
+@if (salesFileChooseDropDown != null)
+{
+    <div>@salesFileChooseDropDown.SelectedItem.ToString()</div>
+}
+
+<RadzenButton Text="Continue" Click="Continue" />
+
+@code {
+    [Parameter]
+    public Pages.ForecastPage Forecast { get; set; }
+
+    private RadzenDropDown<string> inventoryFileChooseDropDown;
+    private RadzenDropDown<string> salesFileChooseDropDown;
+    private RadzenDropDown<string> separatorCharacterDropDown;
+
+    private RadzenNumeric<int> productIdInventory;
+    private RadzenNumeric<int> inventoryOnHand;
+    private RadzenNumeric<int> leadTime;
+
+    private RadzenNumeric<int> productIdSales;
+    private RadzenNumeric<int> date;
+    private RadzenNumeric<int> unitsSold;
+
+    private void Continue()
+    {
+        ImportManager importManager = new ImportManager(
+            salesFileChooseDropDown.SelectedItem.ToString(),
+            inventoryFileChooseDropDown.SelectedItem.ToString(),
+            char.Parse(separatorCharacterDropDown.SelectedItem.ToString()),
+            ForecastingManager);
+
+        importManager.ImportData(
+            productIdInventory.Value,
+            inventoryOnHand.Value,
+            leadTime.Value,
+            productIdSales.Value,
+            date.Value,
+            unitsSold.Value);
+
+        Forecast.ChooseAlgorithm();
+    }
+}

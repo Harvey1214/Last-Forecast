@@ -14,6 +14,7 @@ namespace Forecast
     public class ForecastingManager
     {
         public List<Product> Products { get; set; } = new List<Product>();
+        public PredictionAlgorithm PredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
 
         public List<ProcessOutput> FindLatestOrderDays()
         {
@@ -21,32 +22,40 @@ namespace Forecast
 
             foreach (Product product in Products)
             {
-                ProcessOutput currentOutput = new ProcessOutput();
-                currentOutput.Code = product.Code;
-                currentOutput.DaysToOrder = FindLatestOrderDay(product);
+                ProcessOutput currentOutput = FindLatestOrderDay(product);
                 output.Add(currentOutput);
             }
 
             return output;
         }
 
-        private float FindLatestOrderDay(Product product)
+        private ProcessOutput FindLatestOrderDay(Product product)
         {
-            return PredictDemandForDay(product);
+            switch (PredictionAlgorithm)
+            {
+                case PredictionAlgorithm.AVERAGE:
+                    Average average = new Average(product);
+                    return average.Predict();
+                case PredictionAlgorithm.MEDIAN:
+                    break;
+            }
+
+            return null;
         }
 
-        private float PredictDemandForDay(Product product)
+        private ProcessOutput PredictDemandForDayWithML(Product product)
         {
             // check if data is valid
             if (product.Code == null || product.Sales == null)
             {
-                return -1999.99f;
+                return null;
             }
             else if (product.Sales.Count < 1)
             {
-                return -1999.99f;
+                return null;
             }
 
+            #region MachineLearning
             MLContext mlContext = new MLContext();
 
             // 1. Import or create training data
@@ -88,8 +97,13 @@ namespace Forecast
             num--;
             //num *= 2.25f;
             float result = num - product.LeadTime;
+            #endregion MachineLearning
 
-            return result;
+            ProcessOutput processOutput = new ProcessOutput();
+            processOutput.Product = product;
+            processOutput.DaysToOrder = result;
+
+            return processOutput;
         }
     }
 }

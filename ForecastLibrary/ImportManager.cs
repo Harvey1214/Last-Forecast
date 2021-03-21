@@ -178,6 +178,7 @@ namespace ForecastLibrary
         {
             int result = 0;
             bool success = Int32.TryParse(number, out result);
+
             return result;
         }
     }

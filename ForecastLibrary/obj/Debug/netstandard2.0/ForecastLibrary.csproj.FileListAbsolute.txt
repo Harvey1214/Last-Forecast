@@ -7,3 +7,12 @@ C:\Users\mikuh\source\repos\Forecast\ForecastLibrary\obj\Debug\netstandard2.0\Fo
 C:\Users\mikuh\source\repos\Forecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.dll
 C:\Users\mikuh\source\repos\Forecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.pdb
 C:\Users\mikuh\source\repos\Forecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.csproj.CoreCompileInputs.cache
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\bin\Debug\netstandard2.0\ForecastLibrary.deps.json
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\bin\Debug\netstandard2.0\ForecastLibrary.dll
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\bin\Debug\netstandard2.0\ForecastLibrary.pdb
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.csprojAssemblyReference.cache
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.AssemblyInfoInputs.cache
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.AssemblyInfo.cs
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.csproj.CoreCompileInputs.cache
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.dll
+C:\Users\mikuh\source\repos\LastForecast\ForecastLibrary\obj\Debug\netstandard2.0\ForecastLibrary.pdb

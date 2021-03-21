@@ -4,7 +4,7 @@
 
 @inject DataStorage DataStorage 
 
-<InputFile OnChange="@LoadFiles" multiple />
+<InputFile class="cursor" OnChange="@LoadFiles" multiple />
 
 <RadzenButton Text="Continue" Click="@Continue"/>
 
@@ -34,7 +34,7 @@
     string exceptionMessage;
 
     [Parameter]
-    public Pages.Forecast Forecast { get; set; }
+    public Pages.ForecastPage Forecast { get; set; }
 
     private void Continue()
     {
