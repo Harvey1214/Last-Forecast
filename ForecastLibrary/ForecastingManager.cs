@@ -16,6 +16,8 @@ namespace Forecast
         public List<Product> Products { get; set; } = new List<Product>();
         public PredictionAlgorithm PredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
 
+        public List<ProcessOutput> Results { get; set; }
+
         public List<ProcessOutput> FindLatestOrderDays()
         {
             List<ProcessOutput> output = new List<ProcessOutput>();
@@ -26,6 +28,7 @@ namespace Forecast
                 output.Add(currentOutput);
             }
 
+            Results = output;
             return output;
         }
 
@@ -38,6 +41,8 @@ namespace Forecast
                     return average.Predict();
                 case PredictionAlgorithm.MEDIAN:
                     break;
+                case PredictionAlgorithm.ML:
+                    return PredictDemandForDayWithML(product);
             }
 
             return null;

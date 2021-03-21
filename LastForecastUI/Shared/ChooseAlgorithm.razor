@@ -1,0 +1,17 @@
+﻿@using Forecast
+@inject ForecastingManager ForecastingManager 
+
+<RadzenButton Text="Continue" Click="Continue" />
+
+@code {
+    [Parameter]
+    public Pages.ForecastPage Forecast { get; set; }
+
+    private void Continue()
+    {
+        ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
+        ForecastingManager.FindLatestOrderDays();
+
+        Forecast.DisplayResults();
+    }
+}

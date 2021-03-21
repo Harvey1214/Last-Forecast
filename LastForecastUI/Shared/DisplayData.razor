@@ -1,0 +1,19 @@
+﻿@using Forecast
+@using ForecastLibrary
+@inject ForecastingManager ForecastingManager 
+
+
+<table>
+    @foreach (var product in ForecastingManager.Results)
+    {
+        <tr>
+            <td>@product.Product.Code</td>
+            <td>@product.DaysToOrder</td>
+            <td>@product.DailySales</td>
+        </tr>
+    }
+</table>
+
+@code {
+
+}

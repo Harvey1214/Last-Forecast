@@ -53,7 +53,15 @@ namespace ForecastLibrary
                 }
             }
 
-            float count = highestDate - lowestDate;
+            float count = 1;
+            if (highestDate > lowestDate)
+            {
+                count += highestDate - lowestDate;
+            }
+            else
+            {
+                count = 1;
+            }
             Single result = sum / count;
 
             return result;

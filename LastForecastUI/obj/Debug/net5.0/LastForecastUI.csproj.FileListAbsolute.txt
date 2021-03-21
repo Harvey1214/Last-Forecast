@@ -84,3 +84,7 @@ C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\RazorDe
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\Razor\Shared\DataSetup.razor.g.cs
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\RazorDeclaration\Pages\ForecastPage.razor.g.cs
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\Razor\Pages\ForecastPage.razor.g.cs
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\RazorDeclaration\Shared\ChooseAlgorithm.razor.g.cs
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\RazorDeclaration\Shared\DisplayData.razor.g.cs
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\Razor\Shared\ChooseAlgorithm.razor.g.cs
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Debug\net5.0\Razor\Shared\DisplayData.razor.g.cs

@@ -9,8 +9,8 @@ namespace ForecastLibrary
 {
     public class ImportManager
     {
-        public string InventoryFileContent { get; set; }
-        public string SalesFileContent { get; set; }
+        public string[] InventoryFileContent { get; set; }
+        public string[] SalesFileContent { get; set; }
 
         public char SplitBy { get; set; }
         public string SalesFile { get; set; }
@@ -74,7 +74,7 @@ namespace ForecastLibrary
                 return;
             }
 
-            List<List<string>> columns = GetColumns(File.ReadAllLines(InventoryFile));
+            List<List<string>> columns = GetColumns(InventoryFileContent);
 
             // first [] = no. of the needed column, for example product id, inventory, lead time, etc.
             // second [] = no. of the current row
@@ -112,12 +112,12 @@ namespace ForecastLibrary
 
         private void ImportSalesData()
         {
-            if (ForecastingManager == null || File.Exists(SalesFile) == false)
+            if (ForecastingManager == null || SalesFileContent == null)
             {
                 return;
             }
 
-            List<List<string>> columns = GetColumns(File.ReadAllLines(SalesFile));
+            List<List<string>> columns = GetColumns(SalesFileContent);
 
             // finds the logest column's length
             int maxColumnLength = 0;
@@ -137,7 +137,7 @@ namespace ForecastLibrary
                     if (product.Code == columns[ProductIdColumnInSales][i])
                     {
                         Sold sold = new Sold();
-                        sold.SetDay(columns[DateColumn][i]);
+                        sold.SetDay(columns[DateColumn][i], DateSettings.US);
                         sold.Quantity = GetInt(columns[UnitsSoldColumn][i]);
                         product.Sales.Add(sold);
                     }

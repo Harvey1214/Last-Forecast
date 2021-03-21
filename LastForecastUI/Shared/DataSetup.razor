@@ -115,10 +115,22 @@
     private void Continue()
     {
         ImportManager importManager = new ImportManager(
-            salesFileChooseDropDown.SelectedItem.ToString(),
-            inventoryFileChooseDropDown.SelectedItem.ToString(),
-            char.Parse(separatorCharacterDropDown.SelectedItem.ToString()),
-            ForecastingManager);
+            splitBy: char.Parse(separatorCharacterDropDown.SelectedItem.ToString()),
+            forecastingManager: ForecastingManager);
+
+        string selectedInventoryFile = inventoryFileChooseDropDown.SelectedItem.ToString();
+        string selectedSalesFile = salesFileChooseDropDown.SelectedItem.ToString();
+        foreach (var file in DataStorage.RawData)
+        {
+            if (file.Name == selectedInventoryFile)
+            {
+                importManager.InventoryFileContent = file.Content;
+            }
+            else if (file.Name == selectedSalesFile)
+            {
+                importManager.SalesFileContent = file.Content;
+            }
+        }
 
         importManager.ImportData(
             productIdInventory.Value,

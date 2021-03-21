@@ -4,21 +4,21 @@
 @using Forecast
 
 @inject DataStorage DataStorage
-@inject ForecastingManager ForecastingManager 
+@inject ForecastingManager ForecastingManager
 
 @switch (DataStorage.State)
 {
     case State.UPLOAD:
-        <FilesUpload Forecast="@this" />
+        <FilesUpload Forecast="@this"/>
         break;
     case State.DATA_SETUP:
         <DataSetup Forecast="@this"/>
         break;
     case State.CHOOSE_ALGORITHM:
-
+        <ChooseAlgorithm Forecast="@this"/>
         break;
     case State.DISPLAY_RESULTS:
-
+        <DisplayData />
         break;
 }
 
@@ -32,6 +32,12 @@
     public void ChooseAlgorithm()
     {
         DataStorage.State = State.CHOOSE_ALGORITHM;
+        Update();
+    }
+
+    public void DisplayResults()
+    {
+        DataStorage.State = State.DISPLAY_RESULTS;
         Update();
     }
 
@@ -52,5 +58,25 @@
                     <div>@line</div>
                 }
             </p>
+        }
+
+
+
+    DATA TEST 2
+            @foreach (var product in ForecastingManager.Products)
+        {
+            <h6>@product.Code</h6>
+            <br />
+            <h6>@product.Inventory</h6>
+            <br />
+            <h6>@product.LeadTime</h6>
+            <br />
+            @foreach (var sale in product.Sales)
+            {
+                <div>@sale.Quantity Day:@sale.Day Month:@sale.Month Year:@sale.Year <b>DayNum:@sale.DayDate</b></div>
+                <br />
+            }
+            <br />
+            <br />
         }
 -->

@@ -133,6 +133,12 @@ using Forecast;
         Update();
     }
 
+    public void DisplayResults()
+    {
+        DataStorage.State = State.DISPLAY_RESULTS;
+        Update();
+    }
+
     public void Update()
     {
         InvokeAsync(StateHasChanged);

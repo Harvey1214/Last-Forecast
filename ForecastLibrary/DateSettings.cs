@@ -4,11 +4,9 @@ using System.Text;
 
 namespace ForecastLibrary
 {
-    public enum PredictionAlgorithm
+    public enum DateSettings
     {
-        AVERAGE,
-        MEDIAN,
-        LINEARREGRESSION,
-        ML
+        US,
+        CZ
     }
 }
