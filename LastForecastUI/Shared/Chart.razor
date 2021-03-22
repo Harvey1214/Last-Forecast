@@ -1,21 +1,45 @@
-﻿@using Forecast
+﻿@page "/chart"
+@page "/chart/{code}"
+
+@using Forecast
 @using ForecastLibrary
 
-<div class="row">
-    <div class="col-md-6 col-sm-12 p-4">
-        <RadzenChart>
-            <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity" RenderingOrder="1">
-            </RadzenAreaSeries>
-            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
-            <RadzenValueAxis>
-                <RadzenGridLines Visible="true" />
-                <RadzenAxisTitle Text="Quantity" />
-            </RadzenValueAxis>
-        </RadzenChart>
-    </div>
-</div>
+@inject NavigationManager NavigationManager
+@inject ForecastingManager ForecastingManager
 
-<RadzenButton Text="Update" Click="Update"/>
+@if (ForecastingManager.Results != null)
+{
+    <div>
+        @Product.Product.Code
+        <br />
+        @Product.DaysToOrder days until Stockout
+        <br />
+        @Product.MonthlySales Monthly Sales
+        <br />
+        @Product.Product.Inventory left
+        <br />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-4">
+            <RadzenChart @ref="SalesChart">
+                <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity" RenderingOrder="1">
+                </RadzenAreaSeries>
+                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+                <RadzenValueAxis>
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="Quantity" />
+                </RadzenValueAxis>
+            </RadzenChart>
+        </div>
+    </div>
+}
+else
+{
+    <h5>Connection has been lost</h5>
+}
+
+<RadzenButton Text="Back" Click="@GoBack" />
 
 @code {
     bool smooth = true;
@@ -23,14 +47,28 @@
     [Parameter]
     public ProcessOutput Product { get; set; }
 
+    [Parameter]
+    public string code { get; set; }
+
+    private RadzenChart SalesChart { get; set; }
+
     private List<DataItem> Data = new List<DataItem>();
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        Update();
+        if (ForecastingManager.Results != null)
+            Product = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+
+        if (Product != null)
+            Update();
     }
 
-    private void Update()
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/forecast");
+    }
+
+    public void Update()
     {
         Data.Clear();
 
@@ -69,8 +107,6 @@
 
             startDate = startDate.AddMonths(1);
         }
-
-        InvokeAsync(StateHasChanged);
     }
 
     class DataItem

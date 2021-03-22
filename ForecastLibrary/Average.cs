@@ -54,9 +54,9 @@ namespace ForecastLibrary
             }
 
             float count = 1;
-            if (highestDate > lowestDate)
+            if (Sold.DayToNum(DateTime.Now) > lowestDate)
             {
-                count += highestDate - lowestDate;
+                count += Sold.DayToNum(DateTime.Now) - lowestDate;
             }
             else
             {

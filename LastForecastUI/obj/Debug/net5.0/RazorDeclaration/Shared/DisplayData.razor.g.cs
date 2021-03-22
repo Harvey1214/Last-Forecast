@@ -118,18 +118,25 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 25 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
-       
-    private ProcessOutput OpenedProduct { get; set; }
+#line 31 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+           
+        private ProcessOutput OpenedProduct { get; set; }
 
-    private void OpenDetails(string code)
-    {
-        OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
-    }
+        private Chart Chart { get; set; }
+
+        private void OpenDetails(string code)
+        {
+            NavigationManager.NavigateTo($"/chart/{code}");
+
+            //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+            //InvokeAsync(StateHasChanged);
+        }
+    
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
     }
 }

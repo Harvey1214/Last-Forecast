@@ -1,6 +1,8 @@
 ﻿@using Forecast
 @using ForecastLibrary
+
 @inject ForecastingManager ForecastingManager
+@inject NavigationManager NavigationManager
 
 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
             AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true">
@@ -17,16 +19,25 @@
     </Columns>
 </RadzenGrid>
 
-@if (OpenedProduct != null)
-{
-    <Chart Product="@OpenedProduct"/>
-}
+    <!--
+        DISPLAY CHARTS FOR ALL PRODUCTS ON THIS PAGE
 
-@code {
-    private ProcessOutput OpenedProduct { get; set; }
-
-    private void OpenDetails(string code)
+        @foreach (var product in ForecastingManager.Results)
     {
-        OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        <Chart Product="@product" />
     }
-}
+    -->
+
+    @code {
+        private ProcessOutput OpenedProduct { get; set; }
+
+        private Chart Chart { get; set; }
+
+        private void OpenDetails(string code)
+        {
+            NavigationManager.NavigateTo($"/chart/{code}");
+
+            //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+            //InvokeAsync(StateHasChanged);
+        }
+    }

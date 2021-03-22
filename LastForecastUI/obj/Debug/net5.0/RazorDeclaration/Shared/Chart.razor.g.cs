@@ -97,19 +97,21 @@ using Radzen.Blazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 4 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
 using Forecast;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 5 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
 using ForecastLibrary;
 
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/chart")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/chart/{code}")]
     public partial class Chart : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -118,21 +120,35 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 44 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
        
     bool smooth = true;
 
     [Parameter]
     public ProcessOutput Product { get; set; }
 
+    [Parameter]
+    public string code { get; set; }
+
+    private RadzenChart SalesChart { get; set; }
+
     private List<DataItem> Data = new List<DataItem>();
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        Update();
+        if (ForecastingManager.Results != null)
+            Product = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+
+        if (Product != null)
+            Update();
     }
 
-    private void Update()
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/forecast");
+    }
+
+    public void Update()
     {
         Data.Clear();
 
@@ -171,8 +187,6 @@ using ForecastLibrary;
 
             startDate = startDate.AddMonths(1);
         }
-
-        InvokeAsync(StateHasChanged);
     }
 
     class DataItem
@@ -184,6 +198,8 @@ using ForecastLibrary;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }
 #pragma warning restore 1591
