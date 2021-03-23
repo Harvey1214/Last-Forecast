@@ -21,6 +21,11 @@ namespace ForecastLibrary
             processOutput.DailySales = DailySales();
             processOutput.DaysToOrder = (float)DaysUntilStockout(processOutput.DailySales);
 
+            for (int i = 0; i < processOutput.PredictedMonthlySales.Count; i++)
+            {
+                processOutput.PredictedMonthlySales[i] = processOutput.MonthlySales;
+            }
+
             return processOutput;
         }
 

@@ -118,20 +118,19 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
-           
-        private ProcessOutput OpenedProduct { get; set; }
+#line 34 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+       
+    private ProcessOutput OpenedProduct { get; set; }
 
-        private Chart Chart { get; set; }
+    private Chart Chart { get; set; }
 
-        private void OpenDetails(string code)
-        {
-            NavigationManager.NavigateTo($"/chart/{code}");
+    private void OpenDetails(string code)
+    {
+        NavigationManager.NavigateTo($"/chart/{code}");
 
-            //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
-            //InvokeAsync(StateHasChanged);
-        }
-    
+        //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        //InvokeAsync(StateHasChanged);
+    }
 
 #line default
 #line hidden

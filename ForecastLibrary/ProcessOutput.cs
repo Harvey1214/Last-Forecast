@@ -17,5 +17,6 @@ namespace ForecastLibrary
                 return DailySales * 30;
             }
         }
+        public List<float> PredictedMonthlySales { get; set; } = new List<float>() { 0, 0, 0, 0 };
     }
 }

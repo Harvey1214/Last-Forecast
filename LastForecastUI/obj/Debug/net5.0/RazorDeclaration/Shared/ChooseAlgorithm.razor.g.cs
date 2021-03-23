@@ -130,6 +130,18 @@ using Forecast;
             case "Average":
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
                 break;
+            case "Fast Tree Tweedie":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
+                break;
+            case "Fast Forest":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTFOREST;
+                break;
+            case "Lbfgs Poisson Regression":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.LBFGSPOISSONREGRESSION;
+                break;
+            case "Sdca":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.SDCA;
+                break;
             default:
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
                 break;

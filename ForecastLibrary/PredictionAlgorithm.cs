@@ -9,6 +9,9 @@ namespace ForecastLibrary
         AVERAGE,
         MEDIAN,
         LINEARREGRESSION,
-        ML
+        FASTTREETWEEDIE,
+        FASTFOREST,
+        LBFGSPOISSONREGRESSION,
+        SDCA
     }
 }

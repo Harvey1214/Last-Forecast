@@ -120,7 +120,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 51 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
        
     bool smooth = true;
 
@@ -133,6 +133,7 @@ using ForecastLibrary;
     private RadzenChart SalesChart { get; set; }
 
     private List<DataItem> Data = new List<DataItem>();
+    private List<DataItem> PredictedData = new List<DataItem>();
 
     protected override void OnParametersSet()
     {
@@ -180,13 +181,27 @@ using ForecastLibrary;
                 totalSoldInMonth += Convert.ToInt32(sale.Quantity);
             }
 
-            item.Date = startDate;
+            item.Date = new DateTime(year:startDate.Year, month:startDate.Month, day:1);
             item.Quantity = totalSoldInMonth;
 
             Data.Add(item);
 
             startDate = startDate.AddMonths(1);
         }
+
+        DateTime now = new DateTime(year:DateTime.Now.Year, month:DateTime.Now.Month, day:1);
+
+        PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.PredictedMonthlySales[0]) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(1), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[1]) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(2), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[2]) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(3), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[3]) });
+
+        /*
+        PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.MonthlySales) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(1), Quantity = Convert.ToInt32(Product.MonthlySales) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(2), Quantity = Convert.ToInt32(Product.MonthlySales) });
+        PredictedData.Add(new DataItem() { Date = now.AddMonths(3), Quantity = Convert.ToInt32(Product.MonthlySales) });
+        */
     }
 
     class DataItem

@@ -4,40 +4,43 @@
 @inject ForecastingManager ForecastingManager
 @inject NavigationManager NavigationManager
 
-<RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-            AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true">
-    <Columns>
-        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Code" />
-        <RadzenGridColumn TItem="ProcessOutput" Property="DaysToOrder" Title="Days until Stockout" />
-        <RadzenGridColumn TItem="ProcessOutput" Property="MonthlySales" Title="Monthly Sales" />
-        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
-        <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
-            <Template Context="data">
-                <RadzenButton Text="Open" Click="@(args => OpenDetails(data.Product.Code))" />
-            </Template>
-        </RadzenGridColumn>
-    </Columns>
-</RadzenGrid>
+@if (ForecastingManager.Results != null)
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true">
+        <Columns>
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Code" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="DaysToOrder" Title="Days until Stockout" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="MonthlySales" Title="Monthly Sales" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
+                <Template Context="data">
+                    <RadzenButton Text="Open" Click="@(args => OpenDetails(data.Product.Code))" />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
 
-    <!--
-        DISPLAY CHARTS FOR ALL PRODUCTS ON THIS PAGE
+<!--
+    DISPLAY CHARTS FOR ALL PRODUCTS ON THIS PAGE
 
-        @foreach (var product in ForecastingManager.Results)
+    @foreach (var product in ForecastingManager.Results)
+{
+    <Chart Product="@product" />
+}
+-->
+
+@code {
+    private ProcessOutput OpenedProduct { get; set; }
+
+    private Chart Chart { get; set; }
+
+    private void OpenDetails(string code)
     {
-        <Chart Product="@product" />
+        NavigationManager.NavigateTo($"/chart/{code}");
+
+        //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        //InvokeAsync(StateHasChanged);
     }
-    -->
-
-    @code {
-        private ProcessOutput OpenedProduct { get; set; }
-
-        private Chart Chart { get; set; }
-
-        private void OpenDetails(string code)
-        {
-            NavigationManager.NavigateTo($"/chart/{code}");
-
-            //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
-            //InvokeAsync(StateHasChanged);
-        }
-    }
+}
