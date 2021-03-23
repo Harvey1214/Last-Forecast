@@ -9,6 +9,7 @@ namespace Forecast
     public class Product
     {
         public string Code { get; set; }
+        public string Title { get; set; }
         public List<Sold> Sales { get; set; } = new List<Sold>();
         public int Inventory { get; set; }
         public int LeadTime { get; set; }

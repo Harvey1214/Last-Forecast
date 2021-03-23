@@ -15,6 +15,9 @@ namespace Forecast
     {
         public List<Product> Products { get; set; } = new List<Product>();
         public PredictionAlgorithm PredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
+        public PredictionAlgorithm MLPredictionAlgorithm { get; set; } = PredictionAlgorithm.FASTFOREST;
+        public PredictionAlgorithm SafePredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
+        public int SalesThreshold { get; set; } = 125;
 
         public List<ProcessOutput> Results { get; set; }
 
@@ -24,7 +27,7 @@ namespace Forecast
 
             foreach (Product product in Products)
             {
-                ProcessOutput currentOutput = FindLatestOrderDay(product);
+                ProcessOutput currentOutput = FindLatestOrderDay(product, PredictionAlgorithm);
                 output.Add(currentOutput);
             }
 
@@ -35,9 +38,9 @@ namespace Forecast
             return output;
         }
 
-        private ProcessOutput FindLatestOrderDay(Product product)
+        private ProcessOutput FindLatestOrderDay(Product product, PredictionAlgorithm predictionAlgorithm)
         {
-            switch (PredictionAlgorithm)
+            switch (predictionAlgorithm)
             {
                 case PredictionAlgorithm.AVERAGE:
                     Average average = new Average(product);
@@ -79,6 +82,22 @@ namespace Forecast
                     catch
                     {
                         return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
+                    }
+                case PredictionAlgorithm.AUTO:
+                    if (product.Sales.Count > SalesThreshold)
+                    {
+                        try
+                        {
+                            return FindLatestOrderDay(product, MLPredictionAlgorithm);
+                        }
+                        catch
+                        {
+                            return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
+                        }
+                    }
+                    else
+                    {
+                        return FindLatestOrderDay(product, SafePredictionAlgorithm);
                     }
             }
 

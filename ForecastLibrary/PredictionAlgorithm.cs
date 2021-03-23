@@ -12,6 +12,7 @@ namespace ForecastLibrary
         FASTTREETWEEDIE,
         FASTFOREST,
         LBFGSPOISSONREGRESSION,
-        SDCA
+        SDCA,
+        AUTO
     }
 }

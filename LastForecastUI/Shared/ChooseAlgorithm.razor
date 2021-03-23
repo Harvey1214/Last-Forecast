@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8">
             <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
-                            Data=@(new List<string>() { "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" }) />
+                            Data=@(new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" }) />
         </div>
     </div>
 </RadzenFieldset>
@@ -46,6 +46,9 @@
                 break;
             case "Sdca":
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.SDCA;
+                break;
+            case "Auto (recommended)":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AUTO;
                 break;
             default:
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;

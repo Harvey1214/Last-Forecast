@@ -142,6 +142,9 @@ using Forecast;
             case "Sdca":
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.SDCA;
                 break;
+            case "Auto (recommended)":
+                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AUTO;
+                break;
             default:
                 ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
                 break;
