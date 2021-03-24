@@ -39,6 +39,8 @@ namespace ForecastLibrary
             SalesFile = salesFile;
             SplitBy = splitBy;
             this.ForecastingManager = forecastingManager;
+
+            forecastingManager.SeparatorCharacter = SplitBy.ToString();
         }
 
         public bool ImportData(int productIdColumnInInventory = 0, int inventoryOnHandColumn = 0, int leadTimeColumn = 0, int productIdColumnInSales = 0, int dateColumn = 0, int unitsSoldColumn = 0, int productTitleColumn = 0)

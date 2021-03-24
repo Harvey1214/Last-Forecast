@@ -33,6 +33,8 @@ namespace LastForecastUI
             services.AddScoped<DataStorage>();
             services.AddScoped<ForecastingManager>();
             services.AddScoped<Preferences>();
+
+            services.AddSingleton<SiteInfo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +61,10 @@ namespace LastForecastUI
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            // setup app's root folders
+            AppDomain.CurrentDomain.SetData("ContentRootPath", env.ContentRootPath);
+            AppDomain.CurrentDomain.SetData("WebRootPath", env.WebRootPath);
         }
     }
 }

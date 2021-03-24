@@ -1,27 +1,41 @@
 ﻿@using Forecast
-@inject ForecastingManager ForecastingManager 
+@using Data
+@using System.IO
+ 
+@inject ForecastingManager ForecastingManager
+@inject SiteInfo SiteInfo
 
-<RadzenFieldset Text="Prediction Algorithm">
-    <div class="block">
-        <div class="col-md-4 align-items-center d-flex">
-            <RadzenLabel Text="Algorithm" />
+@if (loading == false)
+{
+    <RadzenFieldset Text="Prediction Algorithm">
+        <div class="block">
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Algorithm" />
+            </div>
+            <div class="col-md-8">
+                <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
+                                Data=@(new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" }) />
+            </div>
         </div>
-        <div class="col-md-8">
-            <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
-                            Data=@(new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" }) />
-        </div>
+    </RadzenFieldset>
+
+    <div class="continueButton">
+        <RadzenButton Text="Continue" Click="Continue" />
     </div>
-</RadzenFieldset>
-
-<div class="continueButton">
-    <RadzenButton Text="Continue" Click="Continue" />
-</div>
+}
+else
+{
+    <h3>Calculating results...</h3>
+    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="margin-bottom: 20px" />
+}
 
 @code {
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
     private RadzenDropDown<string> algorithmDropDown;
+
+    private bool loading = false;
 
     private void Continue()
     {
@@ -55,8 +69,57 @@
                 break;
         }
 
+        loading = true;
+        InvokeAsync(StateHasChanged);
+
+        Task.Run(() => InitiateForecast());
+    }
+
+    private void InitiateForecast()
+    {
         ForecastingManager.FindLatestOrderDays();
 
+        ExportToCSV();
+
         Forecast.DisplayResults();
+    }
+
+    private void ExportToCSV()
+    {
+        //string path = AppDomain.CurrentDomain.BaseDirectory.Substring(0, AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin"));
+        string path = (string)AppDomain.CurrentDomain.GetData("WebRootPath");
+        string fileName = $"Forecast{DateTime.Now.Ticks}.csv";
+        ForecastingManager.FileName = fileName;
+
+        File.WriteAllText($"{path}/{fileName}", ListToText(GenerateCSVContent()));
+    }
+
+    private string ListToText(List<string> list)
+    {
+        string text = "";
+        foreach (var line in list)
+        {
+            text += $"{line}{Environment.NewLine}";
+        }
+
+        return text;
+    }
+
+    private List<string> GenerateCSVContent()
+    {
+        List<string> content = new List<string>();
+
+        string separatorChar = ForecastingManager.SeparatorCharacter;
+
+        string header = $"product_code{separatorChar}product_title{separatorChar}until_stockout{separatorChar}monthly_sales{separatorChar}inventory{separatorChar}lead_time";
+        content.Add(header);
+
+        foreach (var product in ForecastingManager.Results)
+        {
+            string line = $"{product.Product.Code}{separatorChar}{product.Product.Title}{separatorChar}{product.DaysToOrder}{separatorChar}{product.MonthlySales}{separatorChar}{product.Product.Inventory}{separatorChar}{product.Product.LeadTime}";
+            content.Add(line);
+        }
+
+        return content;
     }
 }

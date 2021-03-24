@@ -103,6 +103,20 @@ using Forecast;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
+using Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
     public partial class ChooseAlgorithm : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -111,12 +125,14 @@ using Forecast;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 20 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
+#line 32 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
        
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
     private RadzenDropDown<string> algorithmDropDown;
+
+    private bool loading = false;
 
     private void Continue()
     {
@@ -150,14 +166,64 @@ using Forecast;
                 break;
         }
 
+        loading = true;
+        InvokeAsync(StateHasChanged);
+
+        Task.Run(() => InitiateForecast());
+    }
+
+    private void InitiateForecast()
+    {
         ForecastingManager.FindLatestOrderDays();
 
+        ExportToCSV();
+
         Forecast.DisplayResults();
+    }
+
+    private void ExportToCSV()
+    {
+        //string path = AppDomain.CurrentDomain.BaseDirectory.Substring(0, AppDomain.CurrentDomain.BaseDirectory.IndexOf("\\bin"));
+        string path = (string)AppDomain.CurrentDomain.GetData("WebRootPath");
+        string fileName = $"Forecast{DateTime.Now.Ticks}.csv";
+        ForecastingManager.FileName = fileName;
+
+        File.WriteAllText($"{path}/{fileName}", ListToText(GenerateCSVContent()));
+    }
+
+    private string ListToText(List<string> list)
+    {
+        string text = "";
+        foreach (var line in list)
+        {
+            text += $"{line}{Environment.NewLine}";
+        }
+
+        return text;
+    }
+
+    private List<string> GenerateCSVContent()
+    {
+        List<string> content = new List<string>();
+
+        string separatorChar = ForecastingManager.SeparatorCharacter;
+
+        string header = $"product_code{separatorChar}product_title{separatorChar}until_stockout{separatorChar}monthly_sales{separatorChar}inventory{separatorChar}lead_time";
+        content.Add(header);
+
+        foreach (var product in ForecastingManager.Results)
+        {
+            string line = $"{product.Product.Code}{separatorChar}{product.Product.Title}{separatorChar}{product.DaysToOrder}{separatorChar}{product.MonthlySales}{separatorChar}{product.Product.Inventory}{separatorChar}{product.Product.LeadTime}";
+            content.Add(line);
+        }
+
+        return content;
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private SiteInfo SiteInfo { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
     }
 }

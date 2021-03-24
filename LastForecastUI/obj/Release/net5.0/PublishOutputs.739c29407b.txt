@@ -12,6 +12,10 @@ C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTm
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\open-iconic\README.md
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\site.css
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\favicon.ico
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast292432021.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast302432021.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522244193820347.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\table.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.json
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\LastForecastUI.dll

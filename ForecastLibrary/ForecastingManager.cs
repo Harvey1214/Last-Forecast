@@ -15,9 +15,13 @@ namespace Forecast
     {
         public List<Product> Products { get; set; } = new List<Product>();
         public PredictionAlgorithm PredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
-        public PredictionAlgorithm MLPredictionAlgorithm { get; set; } = PredictionAlgorithm.FASTFOREST;
+        public PredictionAlgorithm MLPredictionAlgorithm { get; set; } = PredictionAlgorithm.LBFGSPOISSONREGRESSION;
         public PredictionAlgorithm SafePredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
-        public int SalesThreshold { get; set; } = 125;
+        public int SalesThreshold { get; set; } = 150;
+
+        public string SeparatorCharacter { get; set; }
+
+        public string FileName { get; set; }
 
         public List<ProcessOutput> Results { get; set; }
 
@@ -31,8 +35,16 @@ namespace Forecast
 
             foreach (Product product in Products)
             {
-                ProcessOutput currentOutput = FindLatestOrderDay(product, PredictionAlgorithm);
-                output.Add(currentOutput);
+                try
+                {
+                    ProcessOutput currentOutput = FindLatestOrderDay(product, PredictionAlgorithm);
+                    output.Add(currentOutput);
+                }
+                catch (Exception e)
+                {
+                    ProcessOutput errorOutput = new ProcessOutput();
+                    errorOutput.Product = new Product() { Title = e.Message };
+                }
             }
 
             output.RemoveAll(o => o == null);
@@ -54,52 +66,17 @@ namespace Forecast
                 case PredictionAlgorithm.MEDIAN:
                     break;
                 case PredictionAlgorithm.FASTTREETWEEDIE:
-                    try
-                    {
-                        return PredictDemandForDayWithFastTreeTweedie(product);
-                    }
-                    catch
-                    {
-                        return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
-                    }
+                    return PredictDemandForDayWithFastTreeTweedie(product);
                 case PredictionAlgorithm.FASTFOREST:
-                    try
-                    {
-                        return PredictDemandForDayWithFastForest(product);
-                    }
-                    catch
-                    {
-                        return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
-                    }
+                    return PredictDemandForDayWithFastForest(product);
                 case PredictionAlgorithm.LBFGSPOISSONREGRESSION:
-                    try
-                    {
-                        return PredictDemandForDayWithLbfgsPoissonRegression(product);
-                    }
-                    catch
-                    {
-                        return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
-                    }
+                    return PredictDemandForDayWithLbfgsPoissonRegression(product);
                 case PredictionAlgorithm.SDCA:
-                    try
-                    {
-                        return PredictDemandForDayWithSdca(product);
-                    }
-                    catch
-                    {
-                        return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
-                    }
+                    return PredictDemandForDayWithSdca(product);
                 case PredictionAlgorithm.AUTO:
                     if (product.Sales.Count > SalesThreshold)
                     {
-                        try
-                        {
-                            return FindLatestOrderDay(product, MLPredictionAlgorithm);
-                        }
-                        catch
-                        {
-                            return new ProcessOutput() { Product = new Product() { Code = "Exception occured" } };
-                        }
+                        return FindLatestOrderDay(product, MLPredictionAlgorithm);
                     }
                     else
                     {

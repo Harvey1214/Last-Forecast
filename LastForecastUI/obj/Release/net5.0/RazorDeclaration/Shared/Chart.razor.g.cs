@@ -203,10 +203,17 @@ using ForecastLibrary;
 
         DateTime now = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: 1);
 
-        PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.PredictedMonthlySales[0]) });
-        PredictedData.Add(new DataItem() { Date = now.AddMonths(1), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[1]) });
-        PredictedData.Add(new DataItem() { Date = now.AddMonths(2), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[2]) });
-        PredictedData.Add(new DataItem() { Date = now.AddMonths(3), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[3]) });
+        try
+        {
+            PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.PredictedMonthlySales[0]) });
+            PredictedData.Add(new DataItem() { Date = now.AddMonths(1), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[1]) });
+            PredictedData.Add(new DataItem() { Date = now.AddMonths(2), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[2]) });
+            PredictedData.Add(new DataItem() { Date = now.AddMonths(3), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[3]) });
+        }
+        catch
+        {
+
+        }
 
         /*
         PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.MonthlySales) });

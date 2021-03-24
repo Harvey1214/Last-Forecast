@@ -125,7 +125,7 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 48 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 56 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
        
     private ProcessOutput OpenedProduct { get; set; }
 
@@ -134,6 +134,11 @@ using Data;
     private RadzenGrid<ProcessOutput> Table { get; set; }
 
     private int PageSize = 10;
+
+    private void ExportToCSV()
+    {
+        NavigationManager.NavigateTo($"/{ForecastingManager.FileName}");
+    }
 
     private void Update()
     {
