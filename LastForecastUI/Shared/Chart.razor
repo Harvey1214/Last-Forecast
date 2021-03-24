@@ -7,46 +7,51 @@
 @inject NavigationManager NavigationManager
 @inject ForecastingManager ForecastingManager
 
-@if (ForecastingManager.Results != null)
+@if (Visible)
 {
-    <div>
-        @Product.Product.Code
-        <br />
-        @Product.DaysToOrder days until Stockout
-        <br />
-        @Product.MonthlySales Monthly Sales
-        <br />
-        @Product.Product.Inventory left
-        <br />
-    </div>
+    @if (ForecastingManager.Results != null)
+    {
+        @if (Product != null)
+        {
+            <div>
+                @Product.Product.Code
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                @Product.Product.Title
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Days until stockout: @Product.DaysToOrder
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Monthly Sales: @Product.MonthlySales
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Inventory: @Product.Product.Inventory
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        }
 
-    <div class="row">
-        <div class="col-md-6 col-sm-12 p-4">
-            <RadzenChart @ref="SalesChart">
-                <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity">
-                </RadzenAreaSeries>
-                <RadzenAreaSeries Smooth="@smooth" Data="@PredictedData" CategoryProperty="Date" Title="Prediction" ValueProperty="Quantity" LineType="LineType.Dashed" RenderingOrder="1">
-                </RadzenAreaSeries>
-                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
-                <RadzenValueAxis>
-                    <RadzenGridLines Visible="true" />
-                    <RadzenAxisTitle Text="Quantity" />
-                </RadzenValueAxis>
-            </RadzenChart>
-        </div>
-    </div>
-}
-else
-{
-    <h5>Connection has been lost</h5>
-}
-
-<RadzenButton Text="Back" Click="@GoBack" />
-
-<!--
+        <div class="row">
+            <div class="col-md-6 col-sm-12 p-4">
+                <RadzenChart @ref="SalesChart">
                     <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity">
-                </RadzenAreaSeries>
--->
+                    </RadzenAreaSeries>
+                    <RadzenAreaSeries Smooth="@smooth" Data="@PredictedData" CategoryProperty="Date" Title="Prediction" ValueProperty="Quantity" LineType="LineType.Dashed" RenderingOrder="1">
+                    </RadzenAreaSeries>
+                    <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+                    <RadzenValueAxis>
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Quantity" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h5>Connection has been lost</h5>
+    }
+
+    <!--
+            <RadzenButton Text="Back" Click="@GoBack" />
+    -->
+}
 
 @code {
     bool smooth = true;
@@ -57,6 +62,9 @@ else
     [Parameter]
     public string code { get; set; }
 
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
     private RadzenChart SalesChart { get; set; }
 
     private List<DataItem> Data = new List<DataItem>();
@@ -64,9 +72,15 @@ else
 
     protected override void OnParametersSet()
     {
-        if (ForecastingManager.Results != null)
-            Product = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        @*if (ForecastingManager.Results != null)
+                Product = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
 
+            if (Product != null)
+                Update();*@
+    }
+
+    protected override void OnInitialized()
+    {
         if (Product != null)
             Update();
     }
@@ -108,7 +122,7 @@ else
                 totalSoldInMonth += Convert.ToInt32(sale.Quantity);
             }
 
-            item.Date = new DateTime(year:startDate.Year, month:startDate.Month, day:1);
+            item.Date = new DateTime(year: startDate.Year, month: startDate.Month, day: 1);
             item.Quantity = totalSoldInMonth;
 
             Data.Add(item);
@@ -116,7 +130,7 @@ else
             startDate = startDate.AddMonths(1);
         }
 
-        DateTime now = new DateTime(year:DateTime.Now.Year, month:DateTime.Now.Month, day:1);
+        DateTime now = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: 1);
 
         PredictedData.Add(new DataItem() { Date = now, Quantity = Convert.ToInt32(Product.PredictedMonthlySales[0]) });
         PredictedData.Add(new DataItem() { Date = now.AddMonths(1), Quantity = Convert.ToInt32(Product.PredictedMonthlySales[1]) });

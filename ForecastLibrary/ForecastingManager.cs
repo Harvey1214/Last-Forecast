@@ -23,6 +23,10 @@ namespace Forecast
 
         public List<ProcessOutput> FindLatestOrderDays()
         {
+            Products.RemoveAll(o => o == null);
+            Products.RemoveAll(o => o.Sales == null);
+            Products.RemoveAll(o => o.Sales.Count == 0);
+
             List<ProcessOutput> output = new List<ProcessOutput>();
 
             foreach (Product product in Products)
@@ -33,6 +37,8 @@ namespace Forecast
 
             output.RemoveAll(o => o == null);
             output.RemoveAll(o => o.Product == null);
+
+            output.ForEach(o => o.DaysToOrder = (float)Math.Floor(o.DaysToOrder));
 
             Results = output;
             return output;

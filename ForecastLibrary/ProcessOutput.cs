@@ -14,7 +14,7 @@ namespace ForecastLibrary
         {
             get
             {
-                return DailySales * 30;
+                return (float)Math.Round(DailySales * 30, 1);
             }
         }
         public List<float> PredictedMonthlySales { get; set; } = new List<float>() { 0, 0, 0, 0 };

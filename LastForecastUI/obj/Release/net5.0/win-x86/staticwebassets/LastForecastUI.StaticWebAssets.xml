@@ -1,0 +1,4 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\win-x86\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/Radzen.Blazor" Path="C:\Users\mikuh\.nuget\packages\radzen.blazor\3.1.6\build\..\staticwebassets\" />
+</StaticWebAssets>

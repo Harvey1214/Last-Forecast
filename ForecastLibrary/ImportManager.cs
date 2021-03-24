@@ -21,6 +21,8 @@ namespace ForecastLibrary
         /// Positions of the data columns in the inventory file
         /// </summary>
         public int ProductIdColumnInInventory { get; set; }
+        public int ProductTitleColumn { get; set; }
+        public int VariantTitleColumn { get; set; }
         public int InventoryOnHandColumn { get; set; }
         public int LeadTimeColumn { get; set; }
 
@@ -39,7 +41,7 @@ namespace ForecastLibrary
             this.ForecastingManager = forecastingManager;
         }
 
-        public bool ImportData(int productIdColumnInInventory = 0, int inventoryOnHandColumn = 0, int leadTimeColumn = 0, int productIdColumnInSales = 0, int dateColumn = 0, int unitsSoldColumn = 0)
+        public bool ImportData(int productIdColumnInInventory = 0, int inventoryOnHandColumn = 0, int leadTimeColumn = 0, int productIdColumnInSales = 0, int dateColumn = 0, int unitsSoldColumn = 0, int productTitleColumn = 0)
         {
             // updating column positions
             ProductIdColumnInInventory = productIdColumnInInventory;
@@ -48,6 +50,7 @@ namespace ForecastLibrary
             ProductIdColumnInSales = productIdColumnInSales;
             DateColumn = dateColumn;
             UnitsSoldColumn = unitsSoldColumn;
+            ProductTitleColumn = productTitleColumn;
 
             // importing data
             try
@@ -105,6 +108,10 @@ namespace ForecastLibrary
                 if (LeadTimeColumn < columns.Count)
                     if (columns[LeadTimeColumn].Count > i)
                         product.LeadTime = GetInt(columns[LeadTimeColumn][i]);
+
+                if (ProductTitleColumn < columns.Count)
+                    if (columns[ProductTitleColumn].Count > i)
+                        product.Title = columns[ProductTitleColumn][i];
 
                 this.ForecastingManager.Products.Add(product);
             }

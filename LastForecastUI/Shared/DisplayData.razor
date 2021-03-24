@@ -1,18 +1,41 @@
 ﻿@using Forecast
 @using ForecastLibrary
+@using Data
 
 @inject ForecastingManager ForecastingManager
 @inject NavigationManager NavigationManager
 
 @if (ForecastingManager.Results != null)
 {
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true">
+    @foreach (var product in ForecastingManager.Results)
+    {
+        @if (product.Equals(OpenedProduct))
+        {
+            <Chart Product="@product" Visible="true" />
+        }
+        else
+        {
+            <Chart Product="@product" Visible="false" />
+        }
+    }
+
+    <div class="col-md-4 align-items-center d-flex">
+        <RadzenLabel Text="Page Size" />
+    </div>
+    <div class="col-md-8">
+        <RadzenNumeric Min="1" Max="5000" @bind-Value="PageSize" @onchange="Update"/>
+    </div>
+    <br />
+
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="PageSize"
+                AllowSorting="true" Data="@ForecastingManager.Results" TItem="ProcessOutput" AllowColumnResize="true" @ref="Table">
         <Columns>
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Code" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.Title" Title="Title" />
             <RadzenGridColumn TItem="ProcessOutput" Property="DaysToOrder" Title="Days until Stockout" />
             <RadzenGridColumn TItem="ProcessOutput" Property="MonthlySales" Title="Monthly Sales" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.LeadTime" Title="Lead Time" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
                 <Template Context="data">
                     <RadzenButton Text="Open" Click="@(args => OpenDetails(data.Product.Code))" />
@@ -22,25 +45,25 @@
     </RadzenGrid>
 }
 
-<!--
-    DISPLAY CHARTS FOR ALL PRODUCTS ON THIS PAGE
-
-    @foreach (var product in ForecastingManager.Results)
-{
-    <Chart Product="@product" />
-}
--->
-
 @code {
     private ProcessOutput OpenedProduct { get; set; }
 
     private Chart Chart { get; set; }
 
+    private RadzenGrid<ProcessOutput> Table { get; set; }
+
+    private int PageSize = 10;
+
+    private void Update()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
     private void OpenDetails(string code)
     {
-        NavigationManager.NavigateTo($"/chart/{code}");
+        //NavigationManager.NavigateTo($"/chart/{code}");
 
-        //OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
-        //InvokeAsync(StateHasChanged);
+        OpenedProduct = ForecastingManager.Results.Where(o => o.Product.Code == code).FirstOrDefault();
+        InvokeAsync(StateHasChanged);
     }
 }

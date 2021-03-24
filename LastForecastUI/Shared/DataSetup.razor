@@ -46,6 +46,14 @@
     </div>
     <div class="block">
         <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Product Title" />
+        </div>
+        <div class="col-md-8">
+            <RadzenNumeric TValue="int" @ref="productTitle" />
+        </div>
+    </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
             <RadzenLabel Text="Inventory on hand" />
         </div>
         <div class="col-md-8">
@@ -102,6 +110,7 @@
     private RadzenDropDown<string> separatorCharacterDropDown;
 
     private RadzenNumeric<int> productIdInventory;
+    private RadzenNumeric<int> productTitle;
     private RadzenNumeric<int> inventoryOnHand;
     private RadzenNumeric<int> leadTime;
 
@@ -135,7 +144,8 @@
             leadTime.Value,
             productIdSales.Value,
             date.Value,
-            unitsSold.Value);
+            unitsSold.Value,
+            productTitle.Value);
 
         Forecast.ChooseAlgorithm();
     }
