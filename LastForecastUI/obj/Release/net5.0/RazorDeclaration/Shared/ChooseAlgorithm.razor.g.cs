@@ -125,51 +125,73 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 32 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
+#line 56 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\ChooseAlgorithm.razor"
        
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
+    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> MLAlgorithms = new List<string>() { "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> simpleAlgorithms = new List<string>() { "Average" };
+
     private RadzenDropDown<string> algorithmDropDown;
+
+    private RadzenDropDown<string> bigDataDropDown;
+    private RadzenDropDown<string> smallDataDropDown;
 
     private bool loading = false;
 
     private void Continue()
     {
-        string selectedAlgorithmText = "";
+        string selectedAlgorithmText = "Auto (recommended)";
+        string selectedBigDataAlgorithmText = "Fast Tree Tweedie";
+        string selectedSmallDataAlgorithmText = "Average";
 
         if (algorithmDropDown.SelectedItem != null)
             selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
 
-        switch (selectedAlgorithmText)
-        {
-            case "Average":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
-                break;
-            case "Fast Tree Tweedie":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
-                break;
-            case "Fast Forest":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTFOREST;
-                break;
-            case "Lbfgs Poisson Regression":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.LBFGSPOISSONREGRESSION;
-                break;
-            case "Sdca":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.SDCA;
-                break;
-            case "Auto (recommended)":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AUTO;
-                break;
-            default:
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
-                break;
-        }
+        if (bigDataDropDown != null)
+            if (bigDataDropDown.SelectedItem != null)
+                selectedBigDataAlgorithmText = bigDataDropDown.SelectedItem.ToString();
+
+        if (smallDataDropDown != null)
+            if (smallDataDropDown.SelectedItem != null)
+                selectedSmallDataAlgorithmText = smallDataDropDown.SelectedItem.ToString();
+
+        ForecastingManager.PredictionAlgorithm = GetAlgorithmFromText(selectedAlgorithmText);
+        ForecastingManager.MLPredictionAlgorithm = GetAlgorithmFromText(selectedBigDataAlgorithmText);
+        ForecastingManager.SafePredictionAlgorithm = GetAlgorithmFromText(selectedSmallDataAlgorithmText);
 
         loading = true;
         InvokeAsync(StateHasChanged);
 
         Task.Run(() => InitiateForecast());
+    }
+
+    private void Update()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private ForecastLibrary.PredictionAlgorithm GetAlgorithmFromText(string text)
+    {
+        switch (text)
+        {
+            case "Average":
+                return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+            case "Fast Tree Tweedie":
+                return ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
+            case "Fast Forest":
+                return ForecastLibrary.PredictionAlgorithm.FASTFOREST;
+            case "Lbfgs Poisson Regression":
+                return ForecastLibrary.PredictionAlgorithm.LBFGSPOISSONREGRESSION;
+            case "Sdca":
+                return ForecastLibrary.PredictionAlgorithm.SDCA;
+            case "Auto (recommended)":
+                return ForecastLibrary.PredictionAlgorithm.AUTO;
+            default:
+                return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+        }
     }
 
     private void InitiateForecast()

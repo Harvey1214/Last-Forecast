@@ -15,6 +15,17 @@ C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTm
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast292432021.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast302432021.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522244193820347.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522609645097275.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522610697007846.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522612973412640.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522614203373987.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522617027378352.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522618232068227.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522619698175446.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522620079298029.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522620725171038.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522621110003563.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637522622405326568.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\table.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.json

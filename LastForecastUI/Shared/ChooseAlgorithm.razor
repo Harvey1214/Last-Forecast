@@ -7,17 +7,41 @@
 
 @if (loading == false)
 {
-    <RadzenFieldset Text="Prediction Algorithm">
+<RadzenFieldset Text="Prediction Algorithm">
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Algorithm" />
+        </div>
+        <div class="col-md-8">
+            <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
+                            Data=@algorithms Change="Update"/>
+        </div>
+    </div>
+
+    @if (algorithmDropDown != null) 
+    @if (algorithmDropDown.SelectedItem != null) 
+    @if ( GetAlgorithmFromText(algorithmDropDown.SelectedItem.ToString()) == ForecastLibrary.PredictionAlgorithm.AUTO)
+    {
         <div class="block">
             <div class="col-md-4 align-items-center d-flex">
-                <RadzenLabel Text="Algorithm" />
+                <RadzenLabel Text="ML Algorithm" />
             </div>
             <div class="col-md-8">
-                <RadzenDropDown AllowClear="false" TValue="string" @ref="algorithmDropDown"
-                                Data=@(new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" }) />
+                <RadzenDropDown AllowClear="false" TValue="string" @ref="bigDataDropDown"
+                                Data=@MLAlgorithms Placeholder="Fast Tree Tweedie"/>
             </div>
         </div>
-    </RadzenFieldset>
+        <div class="block">
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Simple Algorithm" />
+            </div>
+            <div class="col-md-8">
+                <RadzenDropDown AllowClear="false" TValue="string" @ref="smallDataDropDown"
+                                Data=@simpleAlgorithms Placeholder="Average"/>
+            </div>
+        </div>
+    }
+</RadzenFieldset>
 
     <div class="continueButton">
         <RadzenButton Text="Continue" Click="Continue" />
@@ -33,46 +57,68 @@ else
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
+    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> MLAlgorithms = new List<string>() { "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> simpleAlgorithms = new List<string>() { "Average" };
+
     private RadzenDropDown<string> algorithmDropDown;
+
+    private RadzenDropDown<string> bigDataDropDown;
+    private RadzenDropDown<string> smallDataDropDown;
 
     private bool loading = false;
 
     private void Continue()
     {
-        string selectedAlgorithmText = "";
+        string selectedAlgorithmText = "Auto (recommended)";
+        string selectedBigDataAlgorithmText = "Fast Tree Tweedie";
+        string selectedSmallDataAlgorithmText = "Average";
 
         if (algorithmDropDown.SelectedItem != null)
             selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
 
-        switch (selectedAlgorithmText)
-        {
-            case "Average":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
-                break;
-            case "Fast Tree Tweedie":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
-                break;
-            case "Fast Forest":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.FASTFOREST;
-                break;
-            case "Lbfgs Poisson Regression":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.LBFGSPOISSONREGRESSION;
-                break;
-            case "Sdca":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.SDCA;
-                break;
-            case "Auto (recommended)":
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AUTO;
-                break;
-            default:
-                ForecastingManager.PredictionAlgorithm = ForecastLibrary.PredictionAlgorithm.AVERAGE;
-                break;
-        }
+        if (bigDataDropDown != null)
+            if (bigDataDropDown.SelectedItem != null)
+                selectedBigDataAlgorithmText = bigDataDropDown.SelectedItem.ToString();
+
+        if (smallDataDropDown != null)
+            if (smallDataDropDown.SelectedItem != null)
+                selectedSmallDataAlgorithmText = smallDataDropDown.SelectedItem.ToString();
+
+        ForecastingManager.PredictionAlgorithm = GetAlgorithmFromText(selectedAlgorithmText);
+        ForecastingManager.MLPredictionAlgorithm = GetAlgorithmFromText(selectedBigDataAlgorithmText);
+        ForecastingManager.SafePredictionAlgorithm = GetAlgorithmFromText(selectedSmallDataAlgorithmText);
 
         loading = true;
         InvokeAsync(StateHasChanged);
 
         Task.Run(() => InitiateForecast());
+    }
+
+    private void Update()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private ForecastLibrary.PredictionAlgorithm GetAlgorithmFromText(string text)
+    {
+        switch (text)
+        {
+            case "Average":
+                return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+            case "Fast Tree Tweedie":
+                return ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
+            case "Fast Forest":
+                return ForecastLibrary.PredictionAlgorithm.FASTFOREST;
+            case "Lbfgs Poisson Regression":
+                return ForecastLibrary.PredictionAlgorithm.LBFGSPOISSONREGRESSION;
+            case "Sdca":
+                return ForecastLibrary.PredictionAlgorithm.SDCA;
+            case "Auto (recommended)":
+                return ForecastLibrary.PredictionAlgorithm.AUTO;
+            default:
+                return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+        }
     }
 
     private void InitiateForecast()
