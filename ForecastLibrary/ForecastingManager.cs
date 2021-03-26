@@ -72,15 +72,15 @@ namespace Forecast
                 switch (product.Title)
                 {
                     case "PROTECT":
+                    case "AIR":
+                        product.LeadTime = 14;
+                        break;
+                    case "CLEAR":
                     case "SLIM":
                     case "MINI":
                     case "LEMORY AIR PRO":
                     case "LEMORY 3D":
-                    case "AIR":
-                        product.LeadTime = 20;
-                        break;
-                    case "CLEAR":
-                        product.LeadTime = 40;
+                        product.LeadTime = 30;
                         break;
                     case "PPLR_HIDDEN_PRODUCT":
                         product.LeadTime = 0;
@@ -235,6 +235,8 @@ namespace Forecast
         private ProcessOutput Predict(Product product, ITransformer model, MLContext mlContext)
         {
             float inventory = product.Inventory;
+
+            if (inventory > 1000) inventory = 1000;
 
             float num = 1; // the number of days until stockout
             DateTime now = DateTime.Now;

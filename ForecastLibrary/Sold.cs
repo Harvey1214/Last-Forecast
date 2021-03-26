@@ -106,7 +106,7 @@ namespace Forecast
         public static int DayToNum(string date)
         {
             DateTime start = DateTime.Parse(StartDate);
-            DateTime dt;
+            DateTime dt = DateTime.Now;
 
             DateTime.TryParse(date, out dt);
             TimeSpan t = dt - start;
