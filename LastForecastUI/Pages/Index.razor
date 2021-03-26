@@ -1,7 +1,7 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager 
 
-<h1>Hello, world!</h1>
+<h1>Last Forecast</h1>
+<p>Predict future sales, avoid stockouts, and optimize your business with our cutting-edge technology consisting of machine learning algorithms and complex mathematical formulas</p>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<RadzenButton Click="@(args => NavigationManager.NavigateTo("/forecast"))" Text="Start Now!" ButtonStyle="ButtonStyle.Secondary"/>

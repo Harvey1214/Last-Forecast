@@ -33,6 +33,14 @@
                             Data=@(new List<string>() {",", ";"}) />
         </div>
     </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Auto Lead Time" />
+        </div>
+        <div class="col-md-8">
+            <RadzenCheckBox @bind-Value=@ForecastingManager.AutoLeadTime TValue="bool" />
+        </div>
+    </div>
 </RadzenFieldset>
 
 <RadzenFieldset Text="Inventory">

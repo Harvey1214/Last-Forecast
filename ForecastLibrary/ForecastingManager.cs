@@ -19,6 +19,8 @@ namespace Forecast
         public PredictionAlgorithm SafePredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
         public int SalesThreshold { get; set; } = 150;
 
+        public bool AutoLeadTime { get; set; } = true;
+
         public string SeparatorCharacter { get; set; }
 
         public string FileName { get; set; }
@@ -27,9 +29,7 @@ namespace Forecast
 
         public List<ProcessOutput> FindLatestOrderDays()
         {
-            Products.RemoveAll(o => o == null);
-            Products.RemoveAll(o => o.Sales == null);
-            Products.RemoveAll(o => o.Sales.Count == 0);
+            PrepareData();
 
             List<ProcessOutput> output = new List<ProcessOutput>();
 
@@ -54,6 +54,39 @@ namespace Forecast
 
             Results = output;
             return output;
+        }
+
+        private void PrepareData()
+        {
+            Products.RemoveAll(o => o == null);
+            Products.RemoveAll(o => o.Sales == null);
+            Products.RemoveAll(o => o.Sales.Count == 0);
+
+            if (AutoLeadTime) AutoSetLeadTime();
+        }
+
+        private void AutoSetLeadTime()
+        {
+            foreach (var product in Products)
+            {
+                switch (product.Title)
+                {
+                    case "PROTECT":
+                    case "SLIM":
+                    case "MINI":
+                    case "LEMORY AIR PRO":
+                    case "LEMORY 3D":
+                    case "AIR":
+                        product.LeadTime = 20;
+                        break;
+                    case "CLEAR":
+                        product.LeadTime = 40;
+                        break;
+                    case "PPLR_HIDDEN_PRODUCT":
+                        product.LeadTime = 0;
+                        break;
+                }
+            }
         }
 
         private ProcessOutput FindLatestOrderDay(Product product, PredictionAlgorithm predictionAlgorithm)
