@@ -41,55 +41,61 @@ namespace Forecast
 
         private const string StartDate = "1/1/1998";
 
-        public void SetDay(string date, DateSettings dateSettings)
+        public static List<string> DateTimeFormats = new List<string>() { "yyyy/dd/MM", "yyyy/MM/dd", "MM/dd/yyyy", "dd/MM/yyyy", "yyyy-dd-MM", "yyyy-MM-dd" };
+
+        public static bool StandardDate { get; set; } = true;
+
+        public void SetDay(string date)
         {
             DateText = date;
 
-            DateTime dateToSave;
-            bool success = false;
-            if (dateSettings == DateSettings.US)
-            {
-                success = DateTime.TryParse(date, out dateToSave);
+            DateTime dateToSave = new DateTime();
 
-                DayDate = DayToNum(date);
-            }
+            if (StandardDate)
+                dateToSave = GetDateStandard(date);
             else
-            {
-                success = GetCzechDate(date, out dateToSave);
+                dateToSave = GetDateSpecific(date);
 
-                if (success)
-                    DayDate = DayToNum(dateToSave);
-            }
+            DayDate = DayToNum(date);
 
-            if (success)
-            {
-                Day = dateToSave.Day;
-                Month = dateToSave.Month;
-                Year = dateToSave.Year;
-            }
+            Day = dateToSave.Day;
+            Month = dateToSave.Month;
+            Year = dateToSave.Year;
         }
 
-        private bool GetCzechDate(string date, out DateTime dt)
+        private static DateTime GetDateStandard(string dateAsText)
         {
-            try
-            {
-                string[] splitDate = date.Split('.');
+            DateTime result = DateTime.Now;
 
-                DateTime dateTime = new DateTime();
-                dateTime.AddDays(Int32.Parse(splitDate[0]));
-                dateTime.AddMonths(Int32.Parse(splitDate[1]));
-                dateTime.AddYears(Int32.Parse(splitDate[2]));
+            DateTime.TryParse(dateAsText, out result);
 
-                dt = dateTime;
-                return true;
-            }
-            catch
-            {
-                dt = new DateTime();
-                return false;
-            }
+            return result;
         }
 
+        private static DateTime GetDateSpecific(string textDate)
+        {
+            DateTime result = new DateTime();
+
+            string[] splitDate = textDate.Split('-');
+            if (splitDate.Length == 3)
+            {
+                result = result.AddDays(GetDateAddition(splitDate[2]));
+                result = result.AddMonths(GetDateAddition(splitDate[1]));
+                result = result.AddYears(GetDateAddition(splitDate[0]));
+            }
+
+            return result;
+        }
+
+        private static int GetDateAddition(string text)
+        {
+            int result = 0;
+            Int32.TryParse(text, out result);
+
+            return result - 1;
+        }
+
+        #region DayNum
         public static int DayToNumUpgraded(string date)
         {
             DateTime dt;
@@ -106,9 +112,14 @@ namespace Forecast
         public static int DayToNum(string date)
         {
             DateTime start = DateTime.Parse(StartDate);
-            DateTime dt = DateTime.Now;
 
-            DateTime.TryParse(date, out dt);
+            DateTime dt = new DateTime();
+
+            if (StandardDate)
+                dt = GetDateStandard(date);
+            else
+                dt = GetDateSpecific(date);
+
             TimeSpan t = dt - start;
             return (int)t.TotalDays;
         }
@@ -126,5 +137,6 @@ namespace Forecast
             startDate.AddDays(num);
             return startDate.ToString();
         }
+        #endregion DayNum
     }
 }

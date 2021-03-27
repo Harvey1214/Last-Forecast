@@ -33,11 +33,14 @@ namespace ForecastLibrary
         public int DateColumn { get; set; }
         public int UnitsSoldColumn { get; set; }
 
-        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', ForecastingManager forecastingManager = null)
+        public bool StandardDate { get; set; } = true;
+
+        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', ForecastingManager forecastingManager = null, bool standardDate = true)
         {
             InventoryFile = inventoryFile;
             SalesFile = salesFile;
             SplitBy = splitBy;
+            StandardDate = standardDate;
             this.ForecastingManager = forecastingManager;
 
             forecastingManager.SeparatorCharacter = SplitBy.ToString();
@@ -53,6 +56,8 @@ namespace ForecastLibrary
             DateColumn = dateColumn;
             UnitsSoldColumn = unitsSoldColumn;
             ProductTitleColumn = productTitleColumn;
+
+            Sold.StandardDate = StandardDate;
 
             // importing data
             try
@@ -146,8 +151,15 @@ namespace ForecastLibrary
                     if (product.Code == columns[ProductIdColumnInSales][i])
                     {
                         Sold sold = new Sold();
-                        sold.SetDay(columns[DateColumn][i], DateSettings.US);
-                        sold.Quantity = GetInt(columns[UnitsSoldColumn][i]);
+
+                        if (DateColumn < columns.Count)
+                            if (columns[DateColumn].Count > i)
+                                sold.SetDay(columns[DateColumn][i]);
+
+                        if (UnitsSoldColumn < columns.Count)
+                            if (columns[UnitsSoldColumn].Count > i)
+                                sold.Quantity = GetInt(columns[UnitsSoldColumn][i]);
+
                         product.Sales.Add(sold);
                     }
                 }

@@ -41,6 +41,14 @@
             <RadzenCheckBox @bind-Value=@ForecastingManager.AutoLeadTime TValue="bool" />
         </div>
     </div>
+    <div class="block">
+        <div class="col-md-4 align-items-center d-flex">
+            <RadzenLabel Text="Standard Date" />
+        </div>
+        <div class="col-md-8">
+            <RadzenCheckBox @bind-Value="@standardDate" TValue="bool" />
+        </div>
+    </div>
 </RadzenFieldset>
 
 <RadzenFieldset Text="Inventory">
@@ -126,11 +134,14 @@
     private RadzenNumeric<int> date;
     private RadzenNumeric<int> unitsSold;
 
+    private bool standardDate = true;
+
     private void Continue()
     {
         ImportManager importManager = new ImportManager(
             splitBy: char.Parse(separatorCharacterDropDown.SelectedItem.ToString()),
-            forecastingManager: ForecastingManager);
+            forecastingManager: ForecastingManager,
+            standardDate:standardDate);
 
         string selectedInventoryFile = inventoryFileChooseDropDown.SelectedItem.ToString();
         string selectedSalesFile = salesFileChooseDropDown.SelectedItem.ToString();
