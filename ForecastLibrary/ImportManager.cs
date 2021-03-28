@@ -66,7 +66,7 @@ namespace ForecastLibrary
                 ImportSalesData();
 
                 return true;
-            }
+        }
             catch (NullReferenceException)
             {
                 return false;
