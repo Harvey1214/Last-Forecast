@@ -125,7 +125,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 112 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DataSetup.razor"
+#line 131 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DataSetup.razor"
        
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
@@ -143,11 +143,16 @@ using ForecastLibrary;
     private RadzenNumeric<int> date;
     private RadzenNumeric<int> unitsSold;
 
+    private bool standardDate = true;
+    private string dateFormat = "yyyy-MM-dd";
+
     private void Continue()
     {
         ImportManager importManager = new ImportManager(
             splitBy: char.Parse(separatorCharacterDropDown.SelectedItem.ToString()),
-            forecastingManager: ForecastingManager);
+            forecastingManager: ForecastingManager,
+            standardDate:standardDate,
+            nonStandardDateFormat:dateFormat);
 
         string selectedInventoryFile = inventoryFileChooseDropDown.SelectedItem.ToString();
         string selectedSalesFile = salesFileChooseDropDown.SelectedItem.ToString();

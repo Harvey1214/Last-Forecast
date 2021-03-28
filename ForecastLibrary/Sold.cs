@@ -41,7 +41,7 @@ namespace Forecast
 
         private const string StartDate = "1/1/1998";
 
-        public static List<string> DateTimeFormats = new List<string>() { "yyyy/dd/MM", "yyyy/MM/dd", "MM/dd/yyyy", "dd/MM/yyyy", "yyyy-dd-MM", "yyyy-MM-dd" };
+        public static string NonStandardDateFormat { get; set; } = "yyyy-MM-dd";
 
         public static bool StandardDate { get; set; } = true;
 
@@ -74,7 +74,13 @@ namespace Forecast
 
         private static DateTime GetDateSpecific(string textDate)
         {
-            DateTime result = new DateTime();
+            DateTime result = DateTime.Now;
+
+            DateTime.TryParseExact(textDate, NonStandardDateFormat, null, System.Globalization.DateTimeStyles.None, out result);
+
+            return result;
+
+            /*DateTime result = new DateTime();
 
             string[] splitDate = textDate.Split('-');
             if (splitDate.Length == 3)
@@ -84,7 +90,7 @@ namespace Forecast
                 result = result.AddYears(GetDateAddition(splitDate[0]));
             }
 
-            return result;
+            return result;*/
         }
 
         private static int GetDateAddition(string text)

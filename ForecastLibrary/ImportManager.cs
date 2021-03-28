@@ -34,13 +34,15 @@ namespace ForecastLibrary
         public int UnitsSoldColumn { get; set; }
 
         public bool StandardDate { get; set; } = true;
+        public string NonStandardDateFormat { get; set; }
 
-        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', ForecastingManager forecastingManager = null, bool standardDate = true)
+        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', ForecastingManager forecastingManager = null, bool standardDate = true, string nonStandardDateFormat = "yyyy-MM-dd")
         {
             InventoryFile = inventoryFile;
             SalesFile = salesFile;
             SplitBy = splitBy;
             StandardDate = standardDate;
+            NonStandardDateFormat = nonStandardDateFormat;
             this.ForecastingManager = forecastingManager;
 
             forecastingManager.SeparatorCharacter = SplitBy.ToString();
@@ -58,6 +60,7 @@ namespace ForecastLibrary
             ProductTitleColumn = productTitleColumn;
 
             Sold.StandardDate = StandardDate;
+            Sold.NonStandardDateFormat = NonStandardDateFormat;
 
             // importing data
             try

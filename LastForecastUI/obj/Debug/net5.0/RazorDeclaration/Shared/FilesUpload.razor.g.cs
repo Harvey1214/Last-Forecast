@@ -149,7 +149,7 @@ using Data;
 #line 43 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\FilesUpload.razor"
              foreach (var (file, content) in loadedFiles)
             {
-                string[] lines = content.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string[] lines = content.Split(new[] { Environment.NewLine, "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
                 DataStorage.RawData.Add(new RawData() { Name = file.Name, Content = lines});
 
                 if (Forecast != null)
