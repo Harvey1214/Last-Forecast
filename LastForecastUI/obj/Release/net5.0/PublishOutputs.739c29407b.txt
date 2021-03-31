@@ -74,6 +74,14 @@ C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTm
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637525270448291686.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637525281132681397.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637525282339815104.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527962966987175.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527963625201390.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527964414204061.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527964728898862.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527965916158767.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527972846489252.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527974887121337.csv
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Forecast637527975645225478.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\wwwroot\table.csv
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\PubTmp\Out\appsettings.json

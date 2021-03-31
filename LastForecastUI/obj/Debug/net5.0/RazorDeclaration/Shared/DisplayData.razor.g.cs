@@ -125,7 +125,7 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 58 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
        
     private ProcessOutput OpenedProduct { get; set; }
 
@@ -135,9 +135,12 @@ using Data;
 
     private int PageSize = 10;
 
-    private void ExportToCSV()
+    private string exportLink
     {
-        NavigationManager.NavigateTo($"/{ForecastingManager.FileName}");
+        get
+        {
+            return $"/{ForecastingManager.FileName}";
+        }
     }
 
     private void Update()

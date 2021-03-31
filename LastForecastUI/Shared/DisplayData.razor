@@ -29,8 +29,8 @@
     </div>
 
     <div class="block">
-        <div class="col-md-8">
-            <RadzenButton Text="Export to CSV" Click="ExportToCSV"/>
+        <div class="col-md-12">
+            <RadzenLink Text="Export to CSV" Path="@exportLink" Target="_blank"/>
         </div>
         <br />
     </div>
@@ -42,6 +42,8 @@
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Title" Title="Title" />
             <RadzenGridColumn TItem="ProcessOutput" Property="DaysToOrder" Title="Days until Stockout" />
             <RadzenGridColumn TItem="ProcessOutput" Property="MonthlySales" Title="Monthly Sales" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.MonthToDateSales" Title="Month to date (qty)" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="Product.LastMonthSales" Title="Last Month (qty)" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.LeadTime" Title="Lead Time" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
@@ -62,9 +64,12 @@
 
     private int PageSize = 10;
 
-    private void ExportToCSV()
+    private string exportLink
     {
-        NavigationManager.NavigateTo($"/{ForecastingManager.FileName}");
+        get
+        {
+            return $"/{ForecastingManager.FileName}";
+        }
     }
 
     private void Update()

@@ -157,12 +157,12 @@ else
 
         string separatorChar = ForecastingManager.SeparatorCharacter;
 
-        string header = $"product_code{separatorChar}product_title{separatorChar}until_stockout{separatorChar}monthly_sales{separatorChar}inventory{separatorChar}lead_time";
+        string header = $"product_code{separatorChar}product_title{separatorChar}until_stockout{separatorChar}monthly_sales{separatorChar}inventory{separatorChar}lead_time{separatorChar}month_to_date_qty{separatorChar}last_month_qty";
         content.Add(header);
 
         foreach (var product in ForecastingManager.Results)
         {
-            string line = $"{product.Product.Code}{separatorChar}{product.Product.Title}{separatorChar}{product.DaysToOrder}{separatorChar}{product.MonthlySales}{separatorChar}{product.Product.Inventory}{separatorChar}{product.Product.LeadTime}";
+            string line = $"{product.Product.Code}{separatorChar}{product.Product.Title}{separatorChar}{product.DaysToOrder}{separatorChar}{product.MonthlySales}{separatorChar}{product.Product.Inventory}{separatorChar}{product.Product.LeadTime}{separatorChar}{product.Product.MonthToDateSales}{separatorChar}{product.Product.LastMonthSales}";
             content.Add(line);
         }
 
