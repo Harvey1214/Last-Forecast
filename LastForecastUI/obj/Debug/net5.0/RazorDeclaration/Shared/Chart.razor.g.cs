@@ -120,7 +120,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 49 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
        
     bool smooth = true;
 
@@ -132,6 +132,9 @@ using ForecastLibrary;
 
     [Parameter]
     public bool Visible { get; set; } = true;
+
+    [Parameter]
+    public bool DisplayDescription { get; set; } = true;
 
     private RadzenChart SalesChart { get; set; }
 
@@ -146,7 +149,7 @@ using ForecastLibrary;
 #line hidden
 #nullable disable
 #nullable restore
-#line 79 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 75 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
                            
     }
 

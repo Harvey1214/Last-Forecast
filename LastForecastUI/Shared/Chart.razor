@@ -9,44 +9,37 @@
 
 @if (Visible)
 {
-    @if (ForecastingManager.Results != null)
+    @if (Product != null && DisplayDescription)
     {
-        @if (Product != null)
-        {
-            <div>
-                @Product.Product.Code
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                @Product.Product.Title
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Days until stockout: @Product.DaysToOrder
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Monthly Sales: @Product.MonthlySales
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Inventory: @Product.Product.Inventory
-                &nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-        }
-
-        <div class="row">
-            <div class="col-md-6 col-sm-12 p-4">
-                <RadzenChart @ref="SalesChart">
-                    <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity">
-                    </RadzenAreaSeries>
-                    <RadzenAreaSeries Smooth="@smooth" Data="@PredictedData" CategoryProperty="Date" Title="Prediction" ValueProperty="Quantity" LineType="LineType.Dashed" RenderingOrder="1">
-                    </RadzenAreaSeries>
-                    <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
-                    <RadzenValueAxis>
-                        <RadzenGridLines Visible="true" />
-                        <RadzenAxisTitle Text="Quantity" />
-                    </RadzenValueAxis>
-                </RadzenChart>
-            </div>
+        <div>
+            @Product.Product.Code
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            @Product.Product.Title
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Days until stockout: @Product.DaysToOrder
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Monthly Sales: @Product.MonthlySales
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Inventory: @Product.Product.Inventory
+            &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     }
-    else
-    {
-        <h5>Connection has been lost</h5>
-    }
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-4">
+            <RadzenChart @ref="SalesChart">
+                <RadzenAreaSeries Smooth="@smooth" Data="@Data" CategoryProperty="Date" Title="Sold" ValueProperty="Quantity">
+                </RadzenAreaSeries>
+                <RadzenAreaSeries Smooth="@smooth" Data="@PredictedData" CategoryProperty="Date" Title="Prediction" ValueProperty="Quantity" LineType="LineType.Dashed" RenderingOrder="1">
+                </RadzenAreaSeries>
+                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+                <RadzenValueAxis>
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="Quantity" />
+                </RadzenValueAxis>
+            </RadzenChart>
+        </div>
+    </div>
 
     <!--
             <RadzenButton Text="Back" Click="@GoBack" />
@@ -64,6 +57,9 @@
 
     [Parameter]
     public bool Visible { get; set; } = true;
+
+    [Parameter]
+    public bool DisplayDescription { get; set; } = true;
 
     private RadzenChart SalesChart { get; set; }
 

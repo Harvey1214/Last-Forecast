@@ -89,7 +89,7 @@ namespace Forecast
             }
         }
 
-        private ProcessOutput FindLatestOrderDay(Product product, PredictionAlgorithm predictionAlgorithm)
+        public ProcessOutput FindLatestOrderDay(Product product, PredictionAlgorithm predictionAlgorithm)
         {
             switch (predictionAlgorithm)
             {

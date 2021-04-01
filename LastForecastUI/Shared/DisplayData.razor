@@ -4,6 +4,8 @@
 
 @inject ForecastingManager ForecastingManager
 @inject NavigationManager NavigationManager
+@inject ComparisonHandler ComparisonHandler  
+@inject IJSRuntime JSRuntime
 
 @if (ForecastingManager.Results != null)
 {
@@ -30,7 +32,14 @@
 
     <div class="block">
         <div class="col-md-12">
-            <RadzenLink Text="Export to CSV" Path="@exportLink" Target="_blank"/>
+            <RadzenLink Text="Export to CSV" Path="@exportLink" Target="_blank" />
+        </div>
+        <br />
+    </div>
+
+    <div class="block">
+        <div class="col-md-12">
+            <RadzenButton Text="Compare" Click="@Compare" />
         </div>
         <br />
     </div>
@@ -69,6 +78,40 @@
         get
         {
             return $"/{ForecastingManager.FileName}";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            int half = (int)(ComparisonHandler.MaxId / 2);
+            ComparisonHandler.Comparisons.RemoveAll(o => o.Id < half);
+        }
+        catch
+        {
+
+        }
+    }
+
+    private void Compare()
+    {
+        if (OpenedProduct == null)
+        {
+            return;
+        }
+
+        ComparisonHandler.MaxId++;
+        Comparison comparison = new Comparison() { Id = ComparisonHandler.MaxId, Product = OpenedProduct.Product };
+        ComparisonHandler.Comparisons.Add(comparison);
+
+        try
+        {
+            JSRuntime.InvokeAsync<object>("open", $"/compare/{ComparisonHandler.MaxId}", "_blank");
+        }
+        catch
+        {
+
         }
     }
 

@@ -8,6 +8,10 @@ a, .btn-link {
     color: #0366d6;
 }
 
+.algorithmTitle {
+    margin-top:1rem;
+}
+
 form .row {
     margin-bottom: 16px;
 }

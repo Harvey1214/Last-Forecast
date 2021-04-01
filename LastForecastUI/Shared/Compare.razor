@@ -1,0 +1,89 @@
+﻿@page "/compare"
+@page "/compare/{IdText}"
+
+@using Data
+@using Forecast
+@using ForecastLibrary
+
+@inject ComparisonHandler ComparisonHandler
+@inject ForecastingManager ForecastingManager
+
+@if (Average != null)
+{
+    <div class="">𝕬𝖛𝖊𝖗𝖆𝖌𝖊</div>
+    <Chart Product="Average" />
+}
+
+@if (LbfgsPoissonRegression != null)
+{
+    <div class="algorithmTitle">🅻🅱🅵🅶🆂 🅿🅾🅸🆂🆂🅾🅽 🆁🅴🅶🆁🅴🆂🆂🅸🅾🅽</div>
+    <Chart Product="LbfgsPoissonRegression" DisplayDescription="false" />
+}
+@if (FastTreeTweedie != null)
+{
+    <div class="algorithmTitle">₣₳₴₮ ₮ⱤɆɆ ₮₩ɆɆĐłɆ</div>
+    <Chart Product="FastTreeTweedie" DisplayDescription="false" />
+}
+@if (FastForest != null)
+{
+    <div class="algorithmTitle">千卂丂ㄒ 千ㄖ尺乇丂ㄒ</div>
+    <Chart Product="FastForest" DisplayDescription="false" />
+}
+@if (Sdca != null)
+{
+    <div class="algorithmTitle">S̾d̾c̾a̾</div>
+    <Chart Product="Sdca" DisplayDescription="false" />
+}
+
+@code {
+    [Parameter]
+    public string IdText { get; set; }
+
+    private Product Product { get; set; }
+
+    private ProcessOutput Auto;
+
+    private ProcessOutput Average;
+
+    private ProcessOutput LbfgsPoissonRegression;
+    private ProcessOutput FastTreeTweedie;
+    private ProcessOutput FastForest;
+    private ProcessOutput Sdca;
+
+    protected override void OnParametersSet()
+    {
+        int id = 0;
+        bool success = Int32.TryParse(IdText, out id);
+
+        if (success == false)
+        {
+            return;
+        }
+
+        var matchingProducts = ComparisonHandler.Comparisons.Where(o => o.Id == id).ToList();
+
+        if (matchingProducts == null)
+        {
+            return;
+        }
+        if (matchingProducts.Count != 1)
+        {
+            return;
+        }
+
+        Product = Portal.CloneJson<Product>(matchingProducts.First().Product);
+        PredictForAll();
+    }
+
+    private void PredictForAll()
+    {
+        //Auto = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AUTO);
+
+        Average = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AVERAGE);
+
+        LbfgsPoissonRegression = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.LBFGSPOISSONREGRESSION);
+        FastTreeTweedie = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.FASTTREETWEEDIE);
+        FastForest = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.FASTFOREST);
+        Sdca = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.SDCA);
+    }
+}

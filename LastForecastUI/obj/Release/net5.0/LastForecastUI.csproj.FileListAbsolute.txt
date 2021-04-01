@@ -90,3 +90,5 @@ C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\LastF
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\ref\LastForecastUI.dll
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\LastForecastUI.pdb
 C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\LastForecastUI.genruntimeconfig.cache
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\RazorDeclaration\Shared\Compare.razor.g.cs
+C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\obj\Release\net5.0\Razor\Shared\Compare.razor.g.cs
