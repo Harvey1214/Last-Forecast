@@ -9,7 +9,7 @@ using ForecastLibrary;
 
 namespace LastForecastUI.Data
 {
-    public class Preferences
+    public class Preferences : IPreferences
     {
         public RadzenGrid<ProcessOutput> Table { get; set; }
     }

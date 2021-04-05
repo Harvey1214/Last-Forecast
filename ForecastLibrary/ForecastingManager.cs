@@ -11,7 +11,7 @@ using Microsoft.ML.Trainers.FastTree;
 
 namespace Forecast
 {
-    public class ForecastingManager
+    public class ForecastingManager : IForecastingManager
     {
         public List<Product> Products { get; set; } = new List<Product>();
         public PredictionAlgorithm PredictionAlgorithm { get; set; } = PredictionAlgorithm.AVERAGE;
@@ -224,7 +224,7 @@ namespace Forecast
 
             // 2. Specify data preparation and model training pipeline
             var pipeline = mlContext.Transforms.Concatenate("Features", "Day", "Month", "Year")
-                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Quantity", maximumNumberOfIterations:10));
+                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Quantity", maximumNumberOfIterations: 10));
 
             // 3. Train model
             var model = pipeline.Fit(trainingData);

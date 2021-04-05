@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ForecastLibrary
 {
-    public class Result
+    public class Result : IResult
     {
         [ColumnName("Score")]
         public float UnitsSold { get; set; }

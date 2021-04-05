@@ -3,8 +3,8 @@
 @using Data
 @using Forecast
 
-@inject DataStorage DataStorage
-@inject ForecastingManager ForecastingManager
+@inject IDataStorage DataStorage
+@inject IForecastingManager ForecastingManager
 
 @switch (DataStorage.State)
 {

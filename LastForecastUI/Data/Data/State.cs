@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LastForecastUI.Data
 {
-    internal enum State
+    public enum State
     {
         UPLOAD,
         DATA_SETUP,

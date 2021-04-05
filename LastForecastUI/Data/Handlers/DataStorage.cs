@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace LastForecastUI.Data
 {
-    public class DataStorage
+    public class DataStorage : IDataStorage
     {
         public List<RawData> RawData { get; set; } = new List<RawData>();
-        internal State State = State.UPLOAD;
+        public State State { get; set; } = State.UPLOAD;
 
         public List<string> GetFileNames()
         {

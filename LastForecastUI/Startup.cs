@@ -30,12 +30,12 @@ namespace LastForecastUI
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddScoped<DataStorage>();
-            services.AddScoped<ForecastingManager>();
-            services.AddScoped<Preferences>();
+            services.AddScoped<IDataStorage, DataStorage>();
+            services.AddScoped<IForecastingManager, ForecastingManager>();
+            services.AddScoped<IPreferences, Preferences>();
 
             services.AddSingleton<SiteInfo>();
-            services.AddSingleton<ComparisonHandler>();
+            services.AddSingleton<IComparisonHandler, ComparisonHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

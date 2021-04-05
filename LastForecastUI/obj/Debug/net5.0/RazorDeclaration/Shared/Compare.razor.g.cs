@@ -183,8 +183,8 @@ using ForecastLibrary;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ComparisonHandler ComparisonHandler { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IForecastingManager ForecastingManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IComparisonHandler ComparisonHandler { get; set; }
     }
 }
 #pragma warning restore 1591

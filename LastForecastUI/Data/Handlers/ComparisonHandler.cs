@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LastForecastUI.Data
 {
-    public class ComparisonHandler
+    public class ComparisonHandler : IComparisonHandler
     {
         public static int MaxId { get; set; }
         public List<Comparison> Comparisons { get; set; } = new List<Comparison>();

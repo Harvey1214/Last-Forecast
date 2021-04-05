@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Forecast
 {
-    public class Sold
+    public class Sold : ISold
     {
         public Single DayDate { get; set; } = 0;
         private Single quantity = 0;

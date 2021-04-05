@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace ForecastLibrary
 {
-    public class ImportManager
+    public class ImportManager : IImportManager
     {
         public string[] InventoryFileContent { get; set; }
         public string[] SalesFileContent { get; set; }
@@ -15,7 +15,7 @@ namespace ForecastLibrary
         public char SplitBy { get; set; }
         public string SalesFile { get; set; }
         public string InventoryFile { get; set; }
-        public ForecastingManager ForecastingManager { get; set; }
+        public IForecastingManager ForecastingManager { get; set; }
 
         /// <summary>
         /// Positions of the data columns in the inventory file
@@ -36,7 +36,7 @@ namespace ForecastLibrary
         public bool StandardDate { get; set; } = true;
         public string NonStandardDateFormat { get; set; }
 
-        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', ForecastingManager forecastingManager = null, bool standardDate = true, string nonStandardDateFormat = "yyyy-MM-dd")
+        public ImportManager(string salesFile = "", string inventoryFile = "", char splitBy = ',', IForecastingManager forecastingManager = null, bool standardDate = true, string nonStandardDateFormat = "yyyy-MM-dd")
         {
             InventoryFile = inventoryFile;
             SalesFile = salesFile;
@@ -69,7 +69,7 @@ namespace ForecastLibrary
                 ImportSalesData();
 
                 return true;
-        }
+            }
             catch (NullReferenceException)
             {
                 return false;

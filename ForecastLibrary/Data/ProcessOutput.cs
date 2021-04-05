@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ForecastLibrary
 {
-    public class ProcessOutput
+    public class ProcessOutput : IProcessOutput
     {
         public Product Product { get; set; }
         public float DaysToOrder { get; set; }
