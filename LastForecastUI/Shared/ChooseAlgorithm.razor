@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-8">
                 <RadzenDropDown AllowClear="false" TValue="string" @ref="smallDataDropDown"
-                                Data=@simpleAlgorithms Placeholder="Average"/>
+                                Data=@simpleAlgorithms Placeholder="Exponential Smoothing"/>
             </div>
         </div>
     }
@@ -57,9 +57,9 @@ else
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
-    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Exponential Smoothing", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
     private List<string> MLAlgorithms = new List<string>() { "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
-    private List<string> simpleAlgorithms = new List<string>() { "Average" };
+    private List<string> simpleAlgorithms = new List<string>() { "Average", "Exponential Smoothing" };
 
     private RadzenDropDown<string> algorithmDropDown;
 
@@ -72,7 +72,7 @@ else
     {
         string selectedAlgorithmText = "Auto (recommended)";
         string selectedBigDataAlgorithmText = "Fast Tree Tweedie";
-        string selectedSmallDataAlgorithmText = "Average";
+        string selectedSmallDataAlgorithmText = "Exponential Smoothing";
 
         if (algorithmDropDown.SelectedItem != null)
             selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
@@ -106,6 +106,8 @@ else
         {
             case "Average":
                 return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+            case "Exponential Smoothing":
+                return ForecastLibrary.PredictionAlgorithm.EXPONENTIALSMOOTHING;
             case "Fast Tree Tweedie":
                 return ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
             case "Fast Forest":

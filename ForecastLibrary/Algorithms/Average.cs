@@ -29,14 +29,6 @@ namespace ForecastLibrary
             return processOutput;
         }
 
-        private Single DaysUntilStockout(Single salesPerDay)
-        {
-            Single daysToOrder = Product.Inventory / salesPerDay;
-            daysToOrder -= Product.LeadTime;
-
-            return daysToOrder;
-        }
-
         private Single DailySales()
         {
             Single sum = 0;

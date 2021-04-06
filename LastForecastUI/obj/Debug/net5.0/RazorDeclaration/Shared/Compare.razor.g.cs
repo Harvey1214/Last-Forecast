@@ -127,7 +127,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 38 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Compare.razor"
+#line 44 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Compare.razor"
        
     [Parameter]
     public string IdText { get; set; }
@@ -137,6 +137,7 @@ using ForecastLibrary;
     private ProcessOutput Auto;
 
     private ProcessOutput Average;
+    private ProcessOutput ExponentialSmoothing;
 
     private ProcessOutput LbfgsPoissonRegression;
     private ProcessOutput FastTreeTweedie;
@@ -173,6 +174,7 @@ using ForecastLibrary;
         //Auto = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AUTO);
 
         Average = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AVERAGE);
+        ExponentialSmoothing = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.EXPONENTIALSMOOTHING);
 
         LbfgsPoissonRegression = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.LBFGSPOISSONREGRESSION);
         FastTreeTweedie = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.FASTTREETWEEDIE);

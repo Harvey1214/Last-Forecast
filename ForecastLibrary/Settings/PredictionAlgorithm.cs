@@ -13,6 +13,7 @@ namespace ForecastLibrary
         FASTFOREST,
         LBFGSPOISSONREGRESSION,
         SDCA,
-        AUTO
+        AUTO,
+        EXPONENTIALSMOOTHING
     }
 }

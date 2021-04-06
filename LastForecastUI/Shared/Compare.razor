@@ -14,6 +14,12 @@
     <Chart Product="Average" />
 }
 
+@if (ExponentialSmoothing != null)
+{
+    <div class="algorithmTitle">ΣXPӨПΣПƬIΛᄂ ƧMӨӨƬΉIПG</div>
+    <Chart Product="ExponentialSmoothing" DisplayDescription="false" />
+}
+
 @if (LbfgsPoissonRegression != null)
 {
     <div class="algorithmTitle">🅻🅱🅵🅶🆂 🅿🅾🅸🆂🆂🅾🅽 🆁🅴🅶🆁🅴🆂🆂🅸🅾🅽</div>
@@ -44,6 +50,7 @@
     private ProcessOutput Auto;
 
     private ProcessOutput Average;
+    private ProcessOutput ExponentialSmoothing;
 
     private ProcessOutput LbfgsPoissonRegression;
     private ProcessOutput FastTreeTweedie;
@@ -80,6 +87,7 @@
         //Auto = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AUTO);
 
         Average = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.AVERAGE);
+        ExponentialSmoothing = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.EXPONENTIALSMOOTHING);
 
         LbfgsPoissonRegression = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.LBFGSPOISSONREGRESSION);
         FastTreeTweedie = ForecastingManager.FindLatestOrderDay(Product, PredictionAlgorithm.FASTTREETWEEDIE);

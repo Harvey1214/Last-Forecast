@@ -96,6 +96,9 @@ namespace Forecast
                 case PredictionAlgorithm.AVERAGE:
                     Average average = new Average(product);
                     return average.Predict();
+                case PredictionAlgorithm.EXPONENTIALSMOOTHING:
+                    ExponentialSmoothing exponentialSmoothing = new ExponentialSmoothing(product);
+                    return exponentialSmoothing.Predict();
                 case PredictionAlgorithm.MEDIAN:
                     break;
                 case PredictionAlgorithm.FASTTREETWEEDIE:

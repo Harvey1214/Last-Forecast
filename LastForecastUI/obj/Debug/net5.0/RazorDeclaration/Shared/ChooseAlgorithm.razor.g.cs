@@ -130,9 +130,9 @@ using System.IO;
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
-    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> algorithms = new List<string>() { "Auto (recommended)", "Average", "Exponential Smoothing", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
     private List<string> MLAlgorithms = new List<string>() { "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
-    private List<string> simpleAlgorithms = new List<string>() { "Average" };
+    private List<string> simpleAlgorithms = new List<string>() { "Average", "Exponential Smoothing" };
 
     private RadzenDropDown<string> algorithmDropDown;
 
@@ -145,7 +145,7 @@ using System.IO;
     {
         string selectedAlgorithmText = "Auto (recommended)";
         string selectedBigDataAlgorithmText = "Fast Tree Tweedie";
-        string selectedSmallDataAlgorithmText = "Average";
+        string selectedSmallDataAlgorithmText = "Exponential Smoothing";
 
         if (algorithmDropDown.SelectedItem != null)
             selectedAlgorithmText = algorithmDropDown.SelectedItem.ToString();
@@ -179,6 +179,8 @@ using System.IO;
         {
             case "Average":
                 return ForecastLibrary.PredictionAlgorithm.AVERAGE;
+            case "Exponential Smoothing":
+                return ForecastLibrary.PredictionAlgorithm.EXPONENTIALSMOOTHING;
             case "Fast Tree Tweedie":
                 return ForecastLibrary.PredictionAlgorithm.FASTTREETWEEDIE;
             case "Fast Forest":

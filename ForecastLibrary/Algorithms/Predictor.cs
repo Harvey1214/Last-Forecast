@@ -30,5 +30,13 @@ namespace ForecastLibrary
         {
             throw new MissingMethodException();
         }
+
+        protected Single DaysUntilStockout(Single salesPerDay)
+        {
+            Single daysToOrder = Product.Inventory / salesPerDay;
+            daysToOrder -= Product.LeadTime;
+
+            return daysToOrder;
+        }
     }
 }

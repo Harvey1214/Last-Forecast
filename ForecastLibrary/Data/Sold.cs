@@ -34,6 +34,19 @@ namespace Forecast
         public Single Month { get; set; } = 0;
         public Single Year { get; set; } = 0;
 
+        public DateTime Date
+        {
+            get
+            {
+                DateTime date = new DateTime();
+                date = date.AddDays(Day - 1);
+                date = date.AddMonths((int)Month - 1);
+                date = date.AddYears((int)Year - 1);
+
+                return date;
+            }
+        }
+
         /// <summary>
         /// Date stored as the original text for debugging purposes
         /// </summary>
