@@ -147,8 +147,8 @@ using Forecast;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataStorage DataStorage { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IForecastingManager ForecastingManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDataStorage DataStorage { get; set; }
     }
 }
 #pragma warning restore 1591

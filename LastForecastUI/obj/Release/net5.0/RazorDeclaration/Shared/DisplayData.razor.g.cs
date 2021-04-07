@@ -148,7 +148,7 @@ using Data;
         try
         {
             int half = (int)(ComparisonHandler.MaxId / 2);
-            ComparisonHandler.Comparisons.RemoveAll(o => o.Id < half);
+            comparisonHandler.Comparisons.RemoveAll(o => o.Id < half);
         }
         catch
         {
@@ -165,7 +165,7 @@ using Data;
 
         ComparisonHandler.MaxId++;
         Comparison comparison = new Comparison() { Id = ComparisonHandler.MaxId, Product = OpenedProduct.Product };
-        ComparisonHandler.Comparisons.Add(comparison);
+        comparisonHandler.Comparisons.Add(comparison);
 
         try
         {
@@ -194,9 +194,9 @@ using Data;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ComparisonHandler ComparisonHandler { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IComparisonHandler comparisonHandler { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ForecastingManager ForecastingManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IForecastingManager ForecastingManager { get; set; }
     }
 }
 #pragma warning restore 1591
