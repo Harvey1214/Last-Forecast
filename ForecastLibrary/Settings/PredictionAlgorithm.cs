@@ -14,6 +14,7 @@ namespace ForecastLibrary
         LBFGSPOISSONREGRESSION,
         SDCA,
         AUTO,
-        EXPONENTIALSMOOTHING
+        EXPONENTIALSMOOTHING,
+        AUTOALL
     }
 }

@@ -91,36 +91,54 @@ namespace Forecast
 
         public ProcessOutput FindLatestOrderDay(Product product, PredictionAlgorithm predictionAlgorithm)
         {
+            ProcessOutput processOutput = new ProcessOutput();
+
             switch (predictionAlgorithm)
             {
                 case PredictionAlgorithm.AVERAGE:
                     Average average = new Average(product);
-                    return average.Predict();
+                    processOutput = average.Predict();
+                    break;
                 case PredictionAlgorithm.EXPONENTIALSMOOTHING:
                     ExponentialSmoothing exponentialSmoothing = new ExponentialSmoothing(product);
-                    return exponentialSmoothing.Predict();
+                    processOutput = exponentialSmoothing.Predict();
+                    break;
                 case PredictionAlgorithm.MEDIAN:
                     break;
                 case PredictionAlgorithm.FASTTREETWEEDIE:
-                    return PredictDemandForDayWithFastTreeTweedie(product);
+                    processOutput = PredictDemandForDayWithFastTreeTweedie(product);
+                    break;
                 case PredictionAlgorithm.FASTFOREST:
-                    return PredictDemandForDayWithFastForest(product);
+                    processOutput = PredictDemandForDayWithFastForest(product);
+                    break;
                 case PredictionAlgorithm.LBFGSPOISSONREGRESSION:
-                    return PredictDemandForDayWithLbfgsPoissonRegression(product);
+                    processOutput = PredictDemandForDayWithLbfgsPoissonRegression(product);
+                    break;
                 case PredictionAlgorithm.SDCA:
-                    return PredictDemandForDayWithSdca(product);
+                    processOutput = PredictDemandForDayWithSdca(product);
+                    break;
                 case PredictionAlgorithm.AUTO:
                     if (product.Sales.Count > SalesThreshold)
                     {
-                        return FindLatestOrderDay(product, MLPredictionAlgorithm);
+                        processOutput = FindLatestOrderDay(product, MLPredictionAlgorithm);
+                        predictionAlgorithm = MLPredictionAlgorithm;
                     }
                     else
                     {
-                        return FindLatestOrderDay(product, SafePredictionAlgorithm);
+                        processOutput = FindLatestOrderDay(product, SafePredictionAlgorithm);
+                        predictionAlgorithm = SafePredictionAlgorithm;
                     }
+                    break;
+                case PredictionAlgorithm.AUTOALL:
+                    processOutput = new Finder(product).Find();
+                    predictionAlgorithm = processOutput.PredictionAlgorithm;
+                    break;
             }
 
-            return null;
+            if (processOutput != null)
+                processOutput.PredictionAlgorithm = predictionAlgorithm;
+
+            return processOutput;
         }
 
         private ProcessOutput PredictDemandForDayWithFastTreeTweedie(Product product)

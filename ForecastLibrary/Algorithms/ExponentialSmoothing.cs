@@ -30,28 +30,6 @@ namespace ForecastLibrary
             return processOutput;
         }
 
-        private float FindA()
-        {
-            float bestError = float.MaxValue;
-            float optimalA = 0;
-
-            float a = 0;
-            while (a <= 1)
-            {
-                float error = DailySales(a, Product.Sales).meanError;
-
-                if (error < bestError)
-                {
-                    optimalA = a;
-                    bestError = error;
-                }
-
-                a += 0.01f;
-            }
-
-            return optimalA;
-        }
-
         private (float result, float meanError) DailySales(float a, List<Sold> sales)
         {
             float previousForecast = 0;

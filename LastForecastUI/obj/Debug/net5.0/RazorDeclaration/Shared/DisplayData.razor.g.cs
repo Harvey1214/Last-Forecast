@@ -125,7 +125,7 @@ using Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
+#line 68 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\DisplayData.razor"
        
     private ProcessOutput OpenedProduct { get; set; }
 

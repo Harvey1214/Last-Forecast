@@ -55,6 +55,7 @@
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.LastMonthSales" Title="Last Month (qty)" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Inventory" Title="Inventory" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.LeadTime" Title="Lead Time" />
+            <RadzenGridColumn TItem="ProcessOutput" Property="PredictionAlgorithm" Title="Algorithm" />
             <RadzenGridColumn TItem="ProcessOutput" Property="Product.Code" Title="Open" Filterable="false" Sortable="false">
                 <Template Context="data">
                     <RadzenButton Text="Open" Click="@(args => OpenDetails(data.Product.Code))" />

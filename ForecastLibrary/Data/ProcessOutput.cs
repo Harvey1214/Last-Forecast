@@ -18,5 +18,6 @@ namespace ForecastLibrary
             }
         }
         public List<float> PredictedMonthlySales { get; set; } = new List<float>() { 0, 0, 0, 0 };
+        public PredictionAlgorithm PredictionAlgorithm { get; set; }
     }
 }

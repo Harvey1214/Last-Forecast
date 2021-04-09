@@ -10,5 +10,6 @@ namespace ForecastLibrary
         float MonthlySales { get; }
         List<float> PredictedMonthlySales { get; set; }
         Product Product { get; set; }
+        PredictionAlgorithm PredictionAlgorithm { get; set; }
     }
 }
