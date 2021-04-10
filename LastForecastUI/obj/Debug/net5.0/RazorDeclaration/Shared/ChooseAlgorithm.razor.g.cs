@@ -130,7 +130,7 @@ using System.IO;
     [Parameter]
     public Pages.ForecastPage Forecast { get; set; }
 
-    private List<string> algorithms = new List<string>() { "Auto All", "Auto (recommended)", "Average", "Exponential Smoothing", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
+    private List<string> algorithms = new List<string>() { "Auto (recommended)", "By Data Quantity", "Average", "Exponential Smoothing", "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
     private List<string> MLAlgorithms = new List<string>() { "Lbfgs Poisson Regression", "Fast Tree Tweedie", "Fast Forest", "Sdca" };
     private List<string> simpleAlgorithms = new List<string>() { "Average", "Exponential Smoothing" };
 
@@ -190,9 +190,9 @@ using System.IO;
             case "Sdca":
                 return ForecastLibrary.PredictionAlgorithm.SDCA;
             case "Auto (recommended)":
-                return ForecastLibrary.PredictionAlgorithm.AUTO;
-            case "Auto All":
                 return ForecastLibrary.PredictionAlgorithm.AUTOALL;
+            case "By Data Quantity":
+                return ForecastLibrary.PredictionAlgorithm.AUTO;
             default:
                 return ForecastLibrary.PredictionAlgorithm.AVERAGE;
         }

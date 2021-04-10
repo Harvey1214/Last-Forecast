@@ -49,6 +49,7 @@ namespace Forecast
 
             output.RemoveAll(o => o == null);
             output.RemoveAll(o => o.Product == null);
+            output.RemoveAll(o => o.MonthlySales == 0 && o.Product.LastMonthSales == 0 && o.Product.MonthToDateSales == 0 && o.Product.Inventory == 0);
 
             output.ForEach(o => o.DaysToOrder = (float)Math.Floor(o.DaysToOrder));
 

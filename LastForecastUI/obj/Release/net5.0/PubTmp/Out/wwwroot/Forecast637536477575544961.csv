@@ -1,0 +1,18 @@
+product_code,product_title,until_stockout,monthly_sales,inventory,lead_time,month_to_date_qty,last_month_qty
+product_title,product_type,NaN,0,0,0,0,0
+Kožená MINI peněženka,MINI,-19,2.5,1,30,3,4
+Kryt AIR pro iPhone X - kožený,AIR,111,6.5,27,14,4,8
+Kryt AIR pro iPhone XR - kožený,AIR,98,4,15,14,4,11
+Kryt PROTECT - iPhone 11 - kožený,PROTECT,46,11.9,24,14,5,12
+Kryt PROTECT - iPhone 12 mini - kožený,PROTECT,32,11,17,14,3,6
+Kryt PROTECT pro iPhone XR - kožený,PROTECT,176,2.5,16,14,0,0
+Průhledný kryt CLEAR - iPhone 11,CLEAR,13,48,69,30,16,55
+Průhledný kryt CLEAR - iPhone 11 PRO,CLEAR,46,14.1,36,30,6,15
+Průhledný kryt CLEAR - iPhone XR,CLEAR,192,8.9,66,30,7,19
+iPhone 11 - 3D tvrzené ochranné sklo,LEMORY 3D,43,16.7,41,30,15,30
+iPhone 11 PRO - 3D tvrzené ochranné sklo,LEMORY 3D,80,7.9,29,30,7,13
+iPhone 11 PRO MAX - 3D tvrzené ochranné sklo,LEMORY 3D,1229,1.5,65,30,2,3
+iPhone 12 PRO MAX - tvrzené ochranné sklo,LEMORY 3D,119,7.2,36,30,5,11
+iPhone 12 mini - tvrzené ochranné sklo,LEMORY 3D,201,13.9,107,30,6,15
+iPhone XS - 3D tvrzené ochranné sklo,LEMORY 3D,318,3.8,44,30,2,1
+iPhone XS MAX - 3D tvrzené ochranné sklo,LEMORY 3D,2079,1.2,86,30,0,0

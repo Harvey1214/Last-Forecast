@@ -1,0 +1,39 @@
+product_code,product_title,until_stockout,monthly_sales,inventory,lead_time,month_to_date_qty,last_month_qty
+product_title,product_type,NaN,0,0,0,0,0
+Gravírování,PPLR_HIDDEN_PRODUCT,999999040,30,999999049,0,7,55
+Kožená MINI peněženka,MINI,20,2.4,4,30,1,4
+Kožená peněženka SLIM s kapsou na mince,SLIM,27,3.7,7,30,0,7
+Kryt AIR pro iPhone SE/7/8 - kožený,AIR,8,13.3,10,14,1,21
+Kryt AIR pro iPhone X - kožený,AIR,89,6.4,22,14,3,8
+Kryt AIR pro iPhone XR - kožený,AIR,71,3.9,11,14,2,11
+Kryt AIR pro iPhone XS - kožený,AIR,39,7.9,14,14,1,13
+Kryt PROTECT - Samsung S10 - kožený,PROTECT,196,1.7,12,14,0,1
+Kryt PROTECT - iPhone 11 - kožený,PROTECT,69,9,25,14,3,12
+Kryt PROTECT - iPhone 12 PRO MAX - kožený,PROTECT,154,2.7,15,14,0,5
+Kryt PROTECT - iPhone 12 mini - kožený,PROTECT,56,6.4,15,14,2,6
+Kryt PROTECT - iPhone 12/12 PRO - kožený,PROTECT,-8,17.9,4,14,0,27
+Kryt PROTECT pro  iPhone 11 PRO - kožený,PROTECT,132,6.3,31,14,2,5
+Kryt PROTECT pro iPhone 11 PRO MAX - kožený,PROTECT,431,1.7,25,14,0,1
+Kryt PROTECT pro iPhone 7/8/SE - kožený,PROTECT,28,11.9,17,14,0,13
+Kryt PROTECT pro iPhone X/XS - kožený,PROTECT,75,5.3,16,14,0,6
+Kryt PROTECT pro iPhone XS MAX - kožený,PROTECT,578,0.9,18,14,0,1
+Průhledný kryt CLEAR - iPhone 11,CLEAR,0,23.9,24,30,10,55
+Průhledný kryt CLEAR - iPhone 11 PRO,CLEAR,32,11.4,24,30,5,15
+Průhledný kryt CLEAR - iPhone 11 PRO MAX,CLEAR,79,3.8,14,30,1,10
+Průhledný kryt CLEAR - iPhone 12 PRO MAX,CLEAR,122,11.4,58,30,6,21
+Průhledný kryt CLEAR - iPhone 12 mini,CLEAR,147,21.3,126,30,1,33
+Průhledný kryt CLEAR - iPhone 12/12 PRO,CLEAR,-14,33.7,18,30,5,77
+Průhledný kryt CLEAR - iPhone 7/8/SE,CLEAR,51,23.2,63,30,7,68
+Průhledný kryt CLEAR - iPhone X/XS,CLEAR,-3,17.3,16,30,3,34
+Průhledný kryt CLEAR - iPhone XR,CLEAR,127,8.6,45,30,4,19
+Průhledný kryt CLEAR - iPhone XS MAX,CLEAR,298,2.4,26,30,0,4
+iPhone 11 - 3D tvrzené ochranné sklo,LEMORY 3D,-16,16.3,8,30,9,30
+iPhone 11 PRO - 3D tvrzené ochranné sklo,LEMORY 3D,93,7.8,32,30,5,13
+iPhone 11 PRO MAX - 3D tvrzené ochranné sklo,LEMORY 3D,1284,1.5,65,30,1,3
+iPhone 12 PRO MAX - tvrzené ochranné sklo,LEMORY 3D,127,7.2,38,30,5,11
+iPhone 12 mini - tvrzené ochranné sklo,LEMORY 3D,216,13.3,109,30,3,15
+iPhone 12/12 PRO - tvrzené ochranné sklo,LEMORY 3D,49,27.4,73,30,2,54
+iPhone 7/8/SE - 3D tvrzené ochranné sklo,LEMORY 3D,107,27,124,30,2,42
+iPhone X - 3D tvrzené ochranné sklo,LEMORY 3D,142,5.9,34,30,3,10
+iPhone XR - 3D tvrzené ochranné sklo,LEMORY 3D,94,4.6,19,30,1,15
+iPhone XS - 3D tvrzené ochranné sklo,LEMORY 3D,1835,0.7,46,30,0,1

@@ -120,7 +120,7 @@ using ForecastLibrary;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 49 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 50 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
        
     bool smooth = true;
 
@@ -149,7 +149,7 @@ using ForecastLibrary;
 #line hidden
 #nullable disable
 #nullable restore
-#line 75 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
+#line 76 "C:\Users\mikuh\source\repos\LastForecast\LastForecastUI\Shared\Chart.razor"
                            
     }
 
