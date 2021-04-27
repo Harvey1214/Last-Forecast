@@ -1,0 +1,4 @@
+{
+  "Environment": 0,
+  "ConnectionStrings": [ "Data Source=MSI\\SQLSERVER;Initial Catalog=LastForecastDatabase;Integrated Security=True;Pooling=False", "" ]
+}

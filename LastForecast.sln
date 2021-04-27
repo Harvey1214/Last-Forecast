@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LastForecastUI", "LastForec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForecastLibrary", "ForecastLibrary\ForecastLibrary.csproj", "{630375AC-5398-46BC-B460-494C8B6CC0BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{806A4619-68F1-439D-A933-C080BFE4E9E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{630375AC-5398-46BC-B460-494C8B6CC0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{630375AC-5398-46BC-B460-494C8B6CC0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{630375AC-5398-46BC-B460-494C8B6CC0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{806A4619-68F1-439D-A933-C080BFE4E9E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{806A4619-68F1-439D-A933-C080BFE4E9E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{806A4619-68F1-439D-A933-C080BFE4E9E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{806A4619-68F1-439D-A933-C080BFE4E9E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
