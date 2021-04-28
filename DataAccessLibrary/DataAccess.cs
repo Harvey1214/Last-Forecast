@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using Dapper;
+using Dapper.Contrib;
 
 namespace DataAccessLibrary
 {
